@@ -272,6 +272,7 @@ const STATUS_COLOR = {
     offline:  { bg:'#F1EFE8', text:'#888780', dot:'#B4B2A9' },
     delivered:{ bg:'#EAF3DE', text:'#3B6D11', dot:'#639922' },
     planned:  { bg:'#EEEDFE', text:'#3C3489', dot:'#7F77DD' },
+    blocked:  { bg:'#FFF2D8', text:'#9A5B00', dot:'#D48A00' },
 };
 const TASK_COLOR = {
     pending:     { bg:'#F1EFE8', text:'#5F5E5A' },
@@ -282,6 +283,7 @@ const TASK_COLOR = {
 const STATUS_ES = {
     idle:'inactivo', working:'trabajando', thinking:'pensando', speaking:'hablando',
     error:'error', offline:'desconectado', delivered:'entregado', planned:'planificado',
+    blocked:'bloqueado',
     in_progress:'en progreso', done:'completado', pending:'pendiente',
 };
 
@@ -526,9 +528,14 @@ function renderProject(project, tasks, plan) {
     if (!project?.name) { bar.style.display = 'none'; return; }
     bar.style.display = 'block';
     const incompleteTasks = Array.isArray(tasks) ? tasks.filter(t => t && t.status !== 'done') : [];
-    const displayStatus = (String(project.status || '').toLowerCase() === 'delivered' && incompleteTasks.length)
-        ? 'in_progress'
-        : project.status;
+    const hasErrors = incompleteTasks.some(t => t.status === 'error');
+    const hasPending = incompleteTasks.some(t => t.status === 'pending');
+    const projectStatus = String(project.status || '').toLowerCase();
+    const displayStatus = (projectStatus === 'delivered' && incompleteTasks.length)
+        ? 'blocked'
+        : (projectStatus === 'delivered' && hasErrors)
+            ? 'blocked'
+            : project.status;
     document.getElementById('proj-name').textContent = project.name;
     document.getElementById('proj-desc').textContent = project.description || '';
     document.getElementById('proj-status-badge').innerHTML = badge(displayStatus);
@@ -540,8 +547,7 @@ function renderProject(project, tasks, plan) {
         project.created_at && `<span class="chip" style="background:var(--bg-secondary);color:var(--text-secondary)">📅 ${fmtDate(project.created_at)}</span>`,
     ].filter(Boolean).join('');
 
-    const canResume = incompleteTasks.some(t => ['error', 'pending'].includes(t.status))
-        || (String(project.status || '').toLowerCase() === 'delivered' && incompleteTasks.length > 0);
+    const canResume = hasErrors || hasPending || (projectStatus === 'delivered' && incompleteTasks.length > 0);
     if (canResume) {
         document.getElementById('proj-meta').innerHTML += `
             <button class="btn-outline" type="button" onclick="resumeProject()">
@@ -549,7 +555,7 @@ function renderProject(project, tasks, plan) {
             </button>
         `;
     }
-    if (displayStatus === 'in_progress' && String(project.status || '').toLowerCase() === 'delivered' && incompleteTasks.length) {
+    if (displayStatus === 'blocked' && projectStatus === 'delivered' && incompleteTasks.length) {
         document.getElementById('proj-meta').innerHTML += `
             <span class="chip" style="background:#FCEBEB;color:#791F1F">Estado corregido: había tareas sin completar</span>
         `;
@@ -607,7 +613,8 @@ function renderTasks(tasks) {
     return tasks.map(task => {
         const ag = AGENT_META[task.agent] || {};
         const tc = TASK_COLOR[task.status] || TASK_COLOR.pending;
-        const canRetry = task.status === 'error' || task.retryable;
+        const canRetry = task.status === 'error' || task.retryable || Number(task.failure_count || 0) > 0;
+        const failureCount = Number(task.failure_count || 0);
         return `<div class="task-row">
             <div class="task-meta">
                 <span class="task-id">${task.id}</span>
@@ -616,6 +623,7 @@ function renderTasks(tasks) {
                 <span class="badge" style="background:${tc.bg};color:${tc.text};min-width:80px;text-align:center">${t(task.status)}</span>
                 ${canRetry ? `<button class="btn-outline" type="button" onclick="resumeTask('${task.id}')">Reanudar</button>` : ''}
             </div>
+            ${failureCount ? `<div class="task-skills">Intentos fallidos: ${failureCount}${task.suggested_agent ? ` · sugerido: ${escapeHtml((AGENT_META[task.suggested_agent] || {}).name || task.suggested_agent)}` : ''}</div>` : ''}
             ${task.skills?.length ? `<div class="task-skills">Habilidades: ${task.skills.join(' · ')}</div>` : ''}
         </div>`;
     }).join('');
