@@ -156,6 +156,9 @@
                             <a href="{{ url('/tasks') }}" class="px-3 py-2 rounded-md text-sm font-medium {{ request()->is('tasks*') ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                                 <i class="fas fa-tasks mr-1"></i> Tasks
                             </a>
+                            <a href="https://openclaw.deploymatrix.com/devsquad" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" target="_blank">
+                                <i class="fas fa-users mr-1"></i> DevSquad
+                            </a>
                             <a href="{{ url('/api/status') }}" class="px-3 py-2 rounded-md text-sm font-medium {{ request()->is('api*') ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                                 <i class="fas fa-code mr-1"></i> API
                             </a>
@@ -191,6 +194,9 @@
                     </a>
                     <a href="{{ url('/tasks') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->is('tasks*') ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <i class="fas fa-tasks mr-2"></i> Tasks
+                    </a>
+                    <a href="https://openclaw.deploymatrix.com/devsquad" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" target="_blank">
+                        <i class="fas fa-users mr-2"></i> DevSquad
                     </a>
                     <a href="{{ url('/api/status') }}" class="block px-3 py-2 rounded-md text-base font-medium {{ request()->is('api*') ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <i class="fas fa-code mr-2"></i> API
