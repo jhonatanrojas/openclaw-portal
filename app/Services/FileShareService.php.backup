@@ -1,0 +1,518 @@
+<?php
+
+namespace App\Services;
+
+use Illuminate\Support\Str;
+
+class FileShareService
+{
+    /**
+     * Directorio base del file share
+     */
+    protected string $basePath = '/var/www/openclaw.deploymatrix.com/public_html';
+
+    /**
+     * Categorías de archivos compartidos
+     */
+    protected array $categories = [
+        'screenshots' => [
+            'name' => '📸 Screenshots',
+            'description' => 'Capturas de pantalla de proyectos y procesos',
+            'icon' => 'fas fa-camera',
+            'color' => 'blue',
+            'extensions' => ['png', 'jpg', 'jpeg', 'gif', 'webp'],
+            'max_size' => 10 * 1024 * 1024, // 10MB
+        ],
+        'docs' => [
+            'name' => '📚 Documentación',
+            'description' => 'Documentación técnica y manuales',
+            'icon' => 'fas fa-book',
+            'color' => 'green',
+            'extensions' => ['md', 'txt', 'pdf', 'doc', 'docx'],
+            'max_size' => 20 * 1024 * 1024, // 20MB
+        ],
+        'tasks' => [
+            'name' => '✅ Tareas',
+            'description' => 'Listas de tareas y seguimiento',
+            'icon' => 'fas fa-tasks',
+            'color' => 'yellow',
+            'extensions' => ['md', 'txt', 'json', 'csv'],
+            'max_size' => 5 * 1024 * 1024, // 5MB
+        ],
+        'reports' => [
+            'name' => '📊 Reportes',
+            'description' => 'Reportes generados automáticamente',
+            'icon' => 'fas fa-chart-bar',
+            'color' => 'purple',
+            'extensions' => ['html', 'pdf', 'json', 'csv'],
+            'max_size' => 10 * 1024 * 1024, // 10MB
+        ],
+        'exports' => [
+            'name' => '📤 Exportaciones',
+            'description' => 'Datos exportados del sistema',
+            'icon' => 'fas fa-file-export',
+            'color' => 'indigo',
+            'extensions' => ['json', 'csv', 'xlsx', 'sql'],
+            'max_size' => 50 * 1024 * 1024, // 50MB
+        ],
+        'shared' => [
+            'name' => '🤝 Compartidos',
+            'description' => 'Archivos compartidos entre agentes',
+            'icon' => 'fas fa-share-alt',
+            'color' => 'pink',
+            'extensions' => ['*'], // Todos los tipos
+            'max_size' => 100 * 1024 * 1024, // 100MB
+        ],
+        'templates' => [
+            'name' => '🎨 Plantillas',
+            'description' => 'Plantillas reutilizables',
+            'icon' => 'fas fa-layer-group',
+            'color' => 'teal',
+            'extensions' => ['md', 'txt', 'json', 'yaml', 'yml'],
+            'max_size' => 2 * 1024 * 1024, // 2MB
+        ],
+    ];
+
+    /**
+     * Obtener todas las categorías
+     */
+    public function getCategories(): array
+    {
+        $categories = [];
+
+        foreach ($this->categories as $key => $category) {
+            $path = $this->basePath . '/' . $key;
+            $exists = File::exists($path);
+            
+            $categories[$key] = [
+                'id' => $key,
+                'name' => $category['name'],
+                'description' => $category['description'],
+                'icon' => $category['icon'],
+                'color' => $category['color'],
+                'path' => '/' . $key . '/',
+                'full_path' => $path,
+                'exists' => $exists,
+                'file_count' => $exists ? count(File::files($path)) : 0,
+                'total_size' => $exists ? $this->getDirectorySize($path) : 0,
+                'extensions' => $category['extensions'],
+                'max_size' => $category['max_size'],
+                'max_size_mb' => round($category['max_size'] / 1024 / 1024, 2),
+            ];
+        }
+
+        return $categories;
+    }
+
+    /**
+     * Obtener archivos de una categoría
+     */
+    public function getFiles(string $category, bool $includeDetails = true): array
+    {
+        if (!isset($this->categories[$category])) {
+            throw new \InvalidArgumentException("Categoría no válida: {$category}");
+        }
+
+        $path = $this->basePath . '/' . $category;
+        
+        if (!File::exists($path)) {
+            return [];
+        }
+
+        $files = [];
+        $items = File::files($path);
+
+        foreach ($items as $item) {
+            $fileInfo = [
+                'name' => $item->getFilename(),
+                'path' => $item->getPathname(),
+                'relative_path' => '/' . $category . '/' . $item->getFilename(),
+                'url' => 'http://openclaw.deploymatrix.com/' . $category . '/' . $item->getFilename(),
+                'size' => $item->getSize(),
+                'size_formatted' => $this->formatBytes($item->getSize()),
+                'extension' => $item->getExtension(),
+                'last_modified' => date('Y-m-d H:i:s', $item->getMTime()),
+                'last_modified_relative' => $this->relativeTime($item->getMTime()),
+                'mime_type' => $this->getMimeType($item->getPathname()),
+                'is_text' => $this->isTextFile($item->getPathname()),
+                'is_image' => $this->isImageFile($item->getPathname()),
+                'is_document' => $this->isDocumentFile($item->getExtension()),
+            ];
+
+            if ($includeDetails) {
+                $fileInfo['details'] = $this->getFileDetails($item->getPathname());
+            }
+
+            $files[] = $fileInfo;
+        }
+
+        // Ordenar por fecha de modificación (más reciente primero)
+        usort($files, function ($a, $b) {
+            return strtotime($b['last_modified']) - strtotime($a['last_modified']);
+        });
+
+        return $files;
+    }
+
+    /**
+     * Obtener detalles de un archivo específico
+     */
+    public function getFileDetails(string $filePath): array
+    {
+        $fullPath = $this->basePath . $filePath;
+        
+        if (!File::exists($fullPath)) {
+            throw new \RuntimeException("Archivo no encontrado: {$filePath}");
+        }
+
+        $file = new \SplFileInfo($fullPath);
+        $extension = $file->getExtension();
+
+        $details = [
+            'name' => $file->getFilename(),
+            'path' => $filePath,
+            'full_path' => $fullPath,
+            'url' => 'http://openclaw.deploymatrix.com' . $filePath,
+            'size' => $file->getSize(),
+            'size_formatted' => $this->formatBytes($file->getSize()),
+            'extension' => $extension,
+            'mime_type' => $file->getMimeType(),
+            'last_modified' => date('Y-m-d H:i:s', $file->getMTime()),
+            'created' => date('Y-m-d H:i:s', $file->getCTime()),
+            'permissions' => substr(sprintf('%o', $file->getPerms()), -4),
+            'readable' => $file->isReadable(),
+            'writable' => $file->isWritable(),
+            'is_text' => $this->isTextFile($fullPath),
+            'is_image' => $this->isImageFile($fullPath),
+            'is_document' => $this->isDocumentFile($extension),
+            'category' => $this->getCategoryFromPath($filePath),
+        ];
+
+        // Si es archivo de texto, leer contenido (solo primeros 100KB)
+        if ($details['is_text'] && $file->getSize() < 100 * 1024) {
+            $content = File::get($fullPath);
+            $details['content_preview'] = Str::limit($content, 500);
+            $details['line_count'] = substr_count($content, "\n") + 1;
+            $details['encoding'] = mb_detect_encoding($content, ['UTF-8', 'ISO-8859-1', 'ASCII'], true);
+        }
+
+        // Si es imagen, obtener dimensiones
+        if ($details['is_image']) {
+            $imageInfo = @getimagesize($fullPath);
+            if ($imageInfo) {
+                $details['image_width'] = $imageInfo[0];
+                $details['image_height'] = $imageInfo[1];
+                $details['image_type'] = $imageInfo[2]; // IMAGETYPE_XXX
+            }
+        }
+
+        return $details;
+    }
+
+    /**
+     * Subir un archivo
+     */
+    public function uploadFile(string $category, \Illuminate\Http\UploadedFile $file, ?string $description = null): array
+    {
+        if (!isset($this->categories[$category])) {
+            throw new \InvalidArgumentException("Categoría no válida: {$category}");
+        }
+
+        $categoryInfo = $this->categories[$category];
+        $extension = strtolower($file->getClientOriginalExtension());
+
+        // Validar extensión
+        if (!$this->isExtensionAllowed($extension, $categoryInfo['extensions'])) {
+            throw new \RuntimeException("Extensión no permitida: .{$extension}");
+        }
+
+        // Validar tamaño
+        if ($file->getSize() > $categoryInfo['max_size']) {
+            $maxSizeMB = round($categoryInfo['max_size'] / 1024 / 1024, 2);
+            throw new \RuntimeException("El archivo excede el tamaño máximo de {$maxSizeMB}MB");
+        }
+
+        // Crear nombre seguro para el archivo
+        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeName = Str::slug($originalName);
+        $fileName = $safeName . '-' . time() . '.' . $extension;
+        
+        // Si el nombre ya existe, agregar sufijo
+        $counter = 1;
+        $targetPath = $this->basePath . '/' . $category . '/' . $fileName;
+        while (File::exists($targetPath)) {
+            $fileName = $safeName . '-' . time() . '-' . $counter . '.' . $extension;
+            $targetPath = $this->basePath . '/' . $category . '/' . $fileName;
+            $counter++;
+        }
+
+        // Crear directorio si no existe
+        $directory = $this->basePath . '/' . $category;
+        if (!File::exists($directory)) {
+            File::makeDirectory($directory, 0755, true);
+        }
+
+        // Mover el archivo
+        $file->move($directory, $fileName);
+
+        // Crear metadatos
+        $metadata = [
+            'uploaded_at' => now()->toISOString(),
+            'original_name' => $file->getClientOriginalName(),
+            'description' => $description,
+            'category' => $category,
+            'size' => $file->getSize(),
+            'mime_type' => $file->getMimeType(),
+            'uploaded_by' => 'system', // En producción sería el usuario
+        ];
+
+        // Guardar metadatos en archivo .json
+        $metadataFile = $directory . '/' . $fileName . '.meta.json';
+        File::put($metadataFile, json_encode($metadata, JSON_PRETTY_PRINT));
+
+        return [
+            'success' => true,
+            'message' => 'Archivo subido exitosamente',
+            'file' => [
+                'name' => $fileName,
+                'original_name' => $file->getClientOriginalName(),
+                'path' => '/' . $category . '/' . $fileName,
+                'url' => 'http://openclaw.deploymatrix.com/' . $category . '/' . $fileName,
+                'size' => $file->getSize(),
+                'size_formatted' => $this->formatBytes($file->getSize()),
+                'extension' => $extension,
+                'category' => $category,
+                'metadata' => $metadata,
+            ],
+        ];
+    }
+
+    /**
+     * Eliminar un archivo
+     */
+    public function deleteFile(string $filePath): array
+    {
+        $fullPath = $this->basePath . $filePath;
+        
+        if (!File::exists($fullPath)) {
+            throw new \RuntimeException("Archivo no encontrado: {$filePath}");
+        }
+
+        // Eliminar archivo principal
+        File::delete($fullPath);
+
+        // Eliminar metadatos si existen
+        $metadataFile = $fullPath . '.meta.json';
+        if (File::exists($metadataFile)) {
+            File::delete($metadataFile);
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Archivo eliminado exitosamente',
+            'deleted_file' => $filePath,
+        ];
+    }
+
+    /**
+     * Obtener estadísticas del file share
+     */
+    public function getStats(): array
+    {
+        $stats = [
+            'total_categories' => count($this->categories),
+            'total_files' => 0,
+            'total_size' => 0,
+            'categories' => [],
+        ];
+
+        foreach ($this->categories as $key => $category) {
+            $path = $this->basePath . '/' . $key;
+            
+            if (File::exists($path)) {
+                $files = File::files($path);
+                $fileCount = count($files);
+                $size = $this->getDirectorySize($path);
+
+                $stats['categories'][$key] = [
+                    'name' => $category['name'],
+                    'file_count' => $fileCount,
+                    'size' => $size,
+                    'size_formatted' => $this->formatBytes($size),
+                ];
+
+                $stats['total_files'] += $fileCount;
+                $stats['total_size'] += $size;
+            } else {
+                $stats['categories'][$key] = [
+                    'name' => $category['name'],
+                    'file_count' => 0,
+                    'size' => 0,
+                    'size_formatted' => '0 B',
+                ];
+            }
+        }
+
+        $stats['total_size_formatted'] = $this->formatBytes($stats['total_size']);
+
+        return $stats;
+    }
+
+    /**
+     * Obtener tamaño de directorio
+     */
+    private function getDirectorySize(string $path): int
+    {
+        if (!File::exists($path)) {
+            return 0;
+        }
+
+        $size = 0;
+        $files = File::allFiles($path);
+        
+        foreach ($files as $file) {
+            $size += $file->getSize();
+        }
+
+        return $size;
+    }
+
+    /**
+     * Formatear bytes a formato legible
+     */
+    private function formatBytes(int $bytes, int $precision = 2): string
+    {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+        $bytes /= pow(1024, $pow);
+
+        return round($bytes, $precision) . ' ' . $units[$pow];
+    }
+
+    /**
+     * Tiempo relativo (hace X tiempo)
+     */
+    private function relativeTime(int $timestamp): string
+    {
+        $diff = time() - $timestamp;
+        
+        if ($diff < 60) {
+            return 'hace ' . $diff . ' segundos';
+        } elseif ($diff < 3600) {
+            return 'hace ' . floor($diff / 60) . ' minutos';
+        } elseif ($diff < 86400) {
+            return 'hace ' . floor($diff / 3600) . ' horas';
+        } elseif ($diff < 2592000) {
+            return 'hace ' . floor($diff / 86400) . ' días';
+        } else {
+            return 'hace ' . floor($diff / 2592000) . ' meses';
+        }
+    }
+
+    /**
+     * Obtener MIME type de un archivo
+     */
+    private function getMimeType(string $path): string
+    {
+        if (function_exists('mime_content_type')) {
+            return mime_content_type($path) ?: 'application/octet-stream';
+        }
+        
+        if (class_exists('finfo')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($finfo, $path);
+            finfo_close($finfo);
+            return $mime ?: 'application/octet-stream';
+        }
+        
+        // Fallback basado en extensión
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $mimeMap = [
+            'txt' => 'text/plain',
+            'md' => 'text/markdown',
+            'json' => 'application/json',
+            'csv' => 'text/csv',
+            'xml' => 'application/xml',
+            'yaml' => 'application/x-yaml',
+            'yml' => 'application/x-yaml',
+            'js' => 'application/javascript',
+            'css' => 'text/css',
+            'html' => 'text/html',
+            'php' => 'application/x-httpd-php',
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif',
+            'webp' => 'image/webp',
+            'bmp' => 'image/bmp',
+            'svg' => 'image/svg+xml',
+            'pdf' => 'application/pdf',
+            'doc' => 'application/msword',
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'xls' => 'application/vnd.ms-excel',
+            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'ppt' => 'application/vnd.ms-powerpoint',
+            'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'zip' => 'application/zip',
+            'tar' => 'application/x-tar',
+            'gz' => 'application/gzip',
+        ];
+        
+        return $mimeMap[$extension] ?? 'application/octet-stream';
+    }
+
+    /**
+     * Verificar si es archivo de texto
+     */
+    private function isTextFile(string $path): bool
+    {
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $textExtensions = ['txt', 'md', 'json', 'csv', 'xml', 'yaml', 'yml', 'js', 'css', 'html', 'php'];
+        
+        return in_array($extension, $textExtensions);
+    }
+
+    /**
+     * Verificar si es archivo de imagen
+     */
+    private function isImageFile(string $path): bool
+    {
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'];
+        
+        return in_array($extension, $imageExtensions);
+    }
+
+    /**
+     * Verificar si es archivo de documento
+     */
+    private function isDocumentFile(string $extension): bool
+    {
+        $docExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'];
+        
+        return in_array(strtolower($extension), $docExtensions);
+    }
+
+    /**
+     * Verificar si extensión está permitida
+     */
+    private function isExtensionAllowed(string $extension, array $allowedExtensions): bool
+    {
+        if (in_array('*', $allowedExtensions)) {
+            return true;
+        }
+
+        return in_array(strtolower($extension), $allowedExtensions);
+    }
+
+    /**
+     * Obtener categoría desde ruta de archivo
+     */
+    private function getCategoryFromPath(string $filePath): ?string
+    {
+        $parts = explode('/', trim($filePath, '/'));
+        return $parts[0] ?? null;
+    }
+}
