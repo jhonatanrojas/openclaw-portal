@@ -365,6 +365,10 @@ Route::prefix('api/openclaw-files')->group(function () {
 Route::prefix('devsquad')->group(function () {
     Route::get('/', [\App\Http\Controllers\DevSquadController::class, 'index'])->name('devsquad.index');
     Route::get('/health', [\App\Http\Controllers\DevSquadController::class, 'health'])->name('devsquad.health');
+    Route::get('/api/stream', [\App\Http\Controllers\DevSquadController::class, 'stream'])->name('devsquad.stream');
+    Route::get('/api/files', [\App\Http\Controllers\DevSquadController::class, 'files'])->name('devsquad.files');
+    Route::get('/files/view', [\App\Http\Controllers\DevSquadController::class, 'viewFile'])->name('devsquad.files.view');
+    Route::get('/files/download', [\App\Http\Controllers\DevSquadController::class, 'downloadFile'])->name('devsquad.files.download');
     Route::get('/api/{path}', [\App\Http\Controllers\DevSquadController::class, 'proxyGet'])->where('path', '.*');
     Route::post('/api/{path}', [\App\Http\Controllers\DevSquadController::class, 'proxyPost'])->where('path', '.*');
     Route::put('/api/{path}', [\App\Http\Controllers\DevSquadController::class, 'proxyPut'])->where('path', '.*');

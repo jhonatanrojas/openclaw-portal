@@ -548,3 +548,89 @@ class TaskController extends Controller
 
     /**
      * Handle assignment change.
+     */
+    private function handleAssignmentChange(Task $task, $newAssigneeId): void
+    {
+        $now = now();
+
+        TaskAssignment::where('task_id', $task->id)
+            ->when($newAssigneeId, function ($query) use ($newAssigneeId) {
+                $query->where('agent_id', '!=', $newAssigneeId);
+            })
+            ->whereIn('status', ['pending', 'accepted'])
+            ->update([
+                'status' => 'rejected',
+                'completed_at' => $now
+            ]);
+
+        if (!$newAssigneeId) {
+            $task->update(['assigned_to' => null]);
+            return;
+        }
+
+        $exists = TaskAssignment::where('task_id', $task->id)
+            ->where('agent_id', $newAssigneeId)
+            ->whereIn('status', ['pending', 'accepted'])
+            ->exists();
+
+        if (!$exists) {
+            TaskAssignment::create([
+                'task_id' => $task->id,
+                'agent_id' => $newAssigneeId,
+                'assigned_by' => Auth::id(),
+                'assignment_type' => 'manual',
+                'priority_score' => $this->calculatePriorityScore($task),
+                'match_score' => $this->calculateMatchScore($task, $newAssigneeId),
+                'status' => 'pending'
+            ]);
+        }
+
+        $task->update(['assigned_to' => $newAssigneeId]);
+    }
+
+    /**
+     * Get task stats for dashboards.
+     */
+    private function getTaskStats(): array
+    {
+        return [
+            'total' => Task::count(),
+            'pending' => Task::where('status', 'pending')->count(),
+            'in_progress' => Task::where('status', 'in_progress')->count(),
+            'completed' => Task::where('status', 'completed')->count(),
+            'blocked' => Task::where('status', 'blocked')->count(),
+            'cancelled' => Task::where('status', 'cancelled')->count(),
+            'by_priority' => Task::groupBy('priority')
+                ->selectRaw('priority, count(*) as count')
+                ->get()
+                ->pluck('count', 'priority'),
+            'by_type' => Task::groupBy('type')
+                ->selectRaw('type, count(*) as count')
+                ->get()
+                ->pluck('count', 'type'),
+            'by_category' => Task::groupBy('category')
+                ->selectRaw('category, count(*) as count')
+                ->get()
+                ->pluck('count', 'category'),
+        ];
+    }
+
+    /**
+     * Get task stats for a specific user.
+     */
+    private function getUserTaskStats($userId): array
+    {
+        $base = Task::where('assigned_to', $userId);
+
+        return [
+            'total' => $base->count(),
+            'pending' => $base->where('status', 'pending')->count(),
+            'in_progress' => $base->where('status', 'in_progress')->count(),
+            'completed' => $base->where('status', 'completed')->count(),
+            'blocked' => $base->where('status', 'blocked')->count(),
+            'overdue' => $base->where('due_date', '<', now())
+                ->whereNotIn('status', ['completed', 'cancelled'])
+                ->count(),
+        ];
+    }
+}
