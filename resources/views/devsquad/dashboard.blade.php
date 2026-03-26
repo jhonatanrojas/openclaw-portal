@@ -133,8 +133,193 @@
 .model-select { width: 100%; border: 0.5px solid var(--border); border-radius: 6px; background: var(--bg-primary); color: var(--text-primary); padding: 8px 10px; font: inherit; font-size: 12px; }
 .models-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
 .models-status { font-size: 12px; color: var(--text-tertiary); }
-        .file-preview { border: 0.5px solid var(--border); border-radius: var(--radius-lg); background: #161512; color: #f2efe6; overflow: hidden; display: flex; flex-direction: column; min-height: 420px; }
-        .file-preview-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 12px; border-bottom: 0.5px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); }
+.miniverse-shell { display: grid; gap: 12px; }
+.miniverse-hero {
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    color: #f8fafc;
+    background:
+        radial-gradient(circle at top right, rgba(125, 211, 252, 0.16), transparent 32%),
+        linear-gradient(135deg, #0f172a 0%, #111827 55%, #1e293b 100%);
+    border: 0.5px solid #243041;
+}
+.miniverse-kicker {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    color: #7dd3fc;
+    margin-bottom: 8px;
+}
+.miniverse-title { font-size: 22px; font-weight: 700; line-height: 1.1; margin-bottom: 6px; }
+.miniverse-subtitle { font-size: 13px; color: rgba(248, 250, 252, .74); max-width: 68ch; }
+.miniverse-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.miniverse-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(226, 232, 240, .18);
+    background: rgba(15, 23, 42, .45);
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 12px;
+}
+.miniverse-action.primary { background: #7dd3fc; color: #0f172a; border-color: #7dd3fc; font-weight: 600; }
+.miniverse-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 12px; }
+.miniverse-card {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-primary);
+    padding: 12px;
+}
+.miniverse-card-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+.miniverse-card h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-secondary); }
+.miniverse-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+.miniverse-stats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.miniverse-stat {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(125, 211, 252, .12);
+    color: #0f172a;
+    border: 1px solid rgba(125, 211, 252, .25);
+}
+.miniverse-stat.soft {
+    background: rgba(15, 23, 42, .08);
+    color: var(--text-secondary);
+    border-color: rgba(15, 23, 42, .12);
+}
+.miniverse-stats.compact { margin-top: 8px; }
+.miniverse-agent-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.miniverse-agent-card {
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    padding: 10px;
+}
+.miniverse-agent-name { font-weight: 600; font-size: 12px; }
+.miniverse-agent-meta { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+.miniverse-agent-task { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+.miniverse-json {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: #0b1220;
+    color: #dbeafe;
+    border-radius: 8px;
+    padding: 10px;
+    overflow: auto;
+    max-height: 280px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.miniverse-preview-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); gap: 12px; align-items: start; }
+.miniverse-side-stack { display: grid; gap: 12px; }
+.miniverse-iframe-shell {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top right, rgba(125, 211, 252, 0.10), transparent 36%),
+        linear-gradient(180deg, #050816 0%, #0f172a 100%);
+    border: 1px solid rgba(125, 211, 252, 0.18);
+    min-height: 560px;
+}
+.miniverse-iframe-shell iframe {
+    display: block;
+    width: 100%;
+    min-height: 560px;
+    height: 100%;
+    border: 0;
+    background: #050816;
+}
+.miniverse-iframe-overlay {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    pointer-events: none;
+}
+.miniverse-iframe-overlay .badge,
+.miniverse-iframe-overlay .miniverse-action {
+    pointer-events: auto;
+}
+.miniverse-iframe-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, .72);
+    color: #e2e8f0;
+    border: 1px solid rgba(226, 232, 240, .16);
+    backdrop-filter: blur(8px);
+    font-size: 11px;
+}
+.miniverse-iframe-fallback {
+    min-height: 560px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    color: #e2e8f0;
+    background:
+        radial-gradient(circle at top right, rgba(125, 211, 252, 0.16), transparent 34%),
+        linear-gradient(135deg, #020617 0%, #111827 58%, #1e293b 100%);
+}
+.miniverse-iframe-fallback h4 { font-size: 18px; margin-bottom: 4px; color: #f8fafc; }
+.miniverse-iframe-fallback p { color: rgba(226, 232, 240, .76); line-height: 1.55; }
+.miniverse-fallback-bullets { display: grid; gap: 8px; margin-top: 4px; }
+.miniverse-fallback-bullet {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(15, 23, 42, .38);
+    border: 1px solid rgba(226, 232, 240, .12);
+    font-size: 12px;
+    color: #dbeafe;
+}
+.miniverse-fallback-step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(125, 211, 252, .18);
+    color: #7dd3fc;
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 1px;
+}
+.miniverse-details {
+    margin-top: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+}
+.miniverse-details summary {
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-secondary);
+    list-style: none;
+}
+.miniverse-details summary::-webkit-details-marker { display: none; }
+.miniverse-url {
+    font-size: 12px;
+    color: var(--text-secondary);
+    word-break: break-word;
+}
+.file-preview { border: 0.5px solid var(--border); border-radius: var(--radius-lg); background: #161512; color: #f2efe6; overflow: hidden; display: flex; flex-direction: column; min-height: 420px; }
+.file-preview-head { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 12px; border-bottom: 0.5px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); }
         .file-preview-title { font-size: 13px; font-weight: 600; word-break: break-word; }
         .file-preview-meta { font-size: 11px; color: rgba(242,239,230,.72); margin-top: 2px; }
         .file-preview-body { flex: 1; overflow: auto; padding: 12px; }
@@ -148,6 +333,14 @@
         .project-item { display: flex; align-items: center; justify-content: space-between;
             padding: 10px 0; border-bottom: 0.5px solid var(--border); font-size: 13px; }
         .project-item:last-child { border-bottom: none; }
+        .project-item.deleted-fade {
+            opacity: 0.5;
+            filter: grayscale(0.8);
+            border-style: dashed;
+        }
+        .project-item.deleted-fade:hover {
+            opacity: 0.8;
+        }
         .project-meta { display: flex; flex-direction: column; gap: 4px; }
         .project-title { font-weight: 500; font-size: 14px; }
         .project-actions { display: flex; gap: 8px; }
@@ -156,7 +349,21 @@
         .btn-danger { background: #E24B4A; color: #fff; border: none; cursor: pointer;
             padding: 6px 10px; border-radius: 6px; font-size: 12px; }
 
-        @media (max-width: 600px) { .agents-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 1080px) {
+            .miniverse-preview-grid { grid-template-columns: 1fr; }
+            .miniverse-iframe-shell,
+            .miniverse-iframe-shell iframe,
+            .miniverse-iframe-fallback { min-height: 460px; }
+        }
+        @media (max-width: 720px) {
+            .agents-grid,
+            .miniverse-agent-grid { grid-template-columns: 1fr; }
+            .miniverse-grid { grid-template-columns: 1fr; }
+            .miniverse-iframe-overlay { flex-direction: column; align-items: stretch; }
+            .miniverse-iframe-shell,
+            .miniverse-iframe-shell iframe,
+            .miniverse-iframe-fallback { min-height: 380px; }
+        }
     </style>
 </head>
 <body>
@@ -204,7 +411,12 @@
 
     <!-- Proyectos iniciados -->
     <div class="panel projects-panel">
-        <div class="section-label">Proyectos</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div class="section-label" style="margin:0">Proyectos</div>
+            <button class="btn-outline" onclick="toggleDeletedProjects()" id="toggle-deleted-btn" style="font-size:10px;padding:4px 8px">
+                Mostrar eliminados
+            </button>
+        </div>
         <div id="projects-list">
             <div class="empty">Cargando proyectos…</div>
         </div>
@@ -230,6 +442,7 @@
         <button class="tab-btn active" onclick="setTab('tasks',this)">Tareas</button>
         <button class="tab-btn" onclick="setTab('log',this)">Registro de eventos</button>
         <button class="tab-btn" onclick="setTab('files',this)">Archivos</button>
+        <button class="tab-btn" onclick="setTab('miniverse',this)">Miniverse</button>
     </div>
 
     <div class="panel" id="tab-content">
@@ -273,6 +486,7 @@ const STATUS_COLOR = {
     delivered:{ bg:'#EAF3DE', text:'#3B6D11', dot:'#639922' },
     planned:  { bg:'#EEEDFE', text:'#3C3489', dot:'#7F77DD' },
     blocked:  { bg:'#FFF2D8', text:'#9A5B00', dot:'#D48A00' },
+    sleeping: { bg:'#F1EFE8', text:'#5F5E5A', dot:'#B4B2A9' },
 };
 const TASK_COLOR = {
     pending:     { bg:'#F1EFE8', text:'#5F5E5A' },
@@ -283,11 +497,12 @@ const TASK_COLOR = {
 const STATUS_ES = {
     idle:'inactivo', working:'trabajando', thinking:'pensando', speaking:'hablando',
     error:'error', offline:'desconectado', delivered:'entregado', planned:'planificado',
-    blocked:'bloqueado',
+    blocked:'bloqueado', sleeping:'durmiendo',
     in_progress:'en progreso', done:'completado', pending:'pendiente',
 };
 
 let memory = null;
+let showDeletedProjects = false;
 let filesSnapshot = null;
 let filesLoading = false;
 let filesError = null;
@@ -297,6 +512,11 @@ let filesScope = 'running';
 let activeTab = 'tasks';
 let modelConfig = null;
 let streamSource = null;
+let miniverseSnapshot = null;
+let miniverseLoading = false;
+let miniverseError = null;
+let miniverseRequestedAt = 0;
+let miniverseRequestPromise = null;
 const MODEL_SELECTION_KEY = 'devsquad:model-selection:v1';
 const LOG_MAX = 200;
 const LOG_AGENT_LIMIT = 5;
@@ -383,6 +603,16 @@ function availableModelsByProvider() {
         if (!grouped[provider]) grouped[provider] = [];
         grouped[provider].push(model);
     }
+    Object.keys(grouped).forEach(provider => {
+        grouped[provider].sort((a, b) => {
+            const aPriority = a.source === 'gateway' ? 0 : 1;
+            const bPriority = b.source === 'gateway' ? 0 : 1;
+            return (
+                aPriority - bPriority ||
+                (a.name || a.model_id || a.qualified || '').localeCompare(b.name || b.model_id || b.qualified || '')
+            );
+        });
+    });
     return grouped;
 }
 
@@ -429,7 +659,10 @@ function renderModelSelect(agentId) {
     const selected = resolvedAgentModel(agentId);
     const options = Object.entries(grouped).map(([provider, models]) => {
         const opts = models.map(model => {
-            const label = `${model.name || model.model_id || model.qualified} (${model.qualified})`;
+            const source = model.source || 'config';
+            const status = model.status || 'ready';
+            const suffix = [source, status !== 'ready' ? status : null].filter(Boolean).join(' | ');
+            const label = `${model.name || model.model_id || model.qualified} (${model.qualified}${suffix ? ` | ${suffix}` : ''})`;
             const selectedAttr = model.qualified === selected ? ' selected' : '';
             return `<option value="${escapeHtml(model.qualified)}"${selectedAttr}>${escapeHtml(label)}</option>`;
         }).join('');
@@ -624,7 +857,10 @@ function renderTasks(tasks) {
                 ${canRetry ? `<button class="btn-outline" type="button" onclick="resumeTask('${task.id}')">Reanudar</button>` : ''}
             </div>
             ${failureCount ? `<div class="task-skills">Intentos fallidos: ${failureCount}${task.suggested_agent ? ` · sugerido: ${escapeHtml((AGENT_META[task.suggested_agent] || {}).name || task.suggested_agent)}` : ''}</div>` : ''}
+            ${task.error ? `<div class="task-skills" style="color:var(--text-danger)"><span style="font-weight:bold">Error:</span> ${escapeHtml(task.error)}</div>` : ''}
             ${task.skills?.length ? `<div class="task-skills">Habilidades: ${task.skills.join(' · ')}</div>` : ''}
+            ${task.files?.length ? `<div class="task-skills">Archivos: ${task.files.map(f => `<a href="#" onclick="setTab('files'); previewWorkspaceFile('${escapeHtml(f.replace(/['"\\]/g, '\\$&'))}'); return false;" style="color:var(--text-primary);text-decoration:underline;">${escapeHtml(fileLabel(f))}</a>`).join(' · ')}</div>` : ''}
+            ${task.notes ? `<div class="task-skills">Evidencia: ${escapeHtml(task.notes)}</div>` : ''}
         </div>`;
     }).join('');
 }
@@ -640,6 +876,202 @@ function renderLog(log) {
             <span>${escapeHtml(e.msg)}</span>
         </div>`
     ).join('');
+}
+
+function normalizeMiniverseAgents(payload) {
+    if (Array.isArray(payload)) return payload;
+    if (Array.isArray(payload?.agents)) return payload.agents;
+    if (payload && typeof payload === 'object') {
+        const statKeys = ['online', 'total', 'version', 'world', 'grid'];
+        const looksLikeStats = statKeys.every(key => key in payload) || (
+            'online' in payload && 'total' in payload && !('state' in payload) && !('task' in payload) && !('agent' in payload)
+        );
+        if (looksLikeStats) return [];
+        return Object.entries(payload).map(([name, value]) => {
+            if (value && typeof value === 'object') {
+                return { agent: name, name, ...value };
+            }
+            return { agent: name, name, state: value };
+        });
+    }
+    return [];
+}
+
+function renderMiniverse(snapshot) {
+    const current = snapshot || {};
+    if (miniverseLoading && !current.repo && !current.world) {
+        return '<div class="empty">Cargando Miniverse...</div>';
+    }
+    if (miniverseError && !current.repo && !current.world) {
+        return `<div class="empty">${escapeHtml(miniverseError)}</div>`;
+    }
+
+    const repo = current.repo || {};
+    const world = current.world || {};
+    const ui = current.ui || {};
+    const info = world.info || {};
+    const agents = normalizeMiniverseAgents(world.agents);
+    const visibleAgentCount = agents.filter(agent => {
+        const state = String(agent?.state || agent?.status || '').toLowerCase();
+        return state !== 'offline' && state !== 'sleeping';
+    }).length;
+    const onlineCount = Number(info?.agents?.online ?? visibleAgentCount ?? 0);
+    const totalCount = Number(info?.agents?.total ?? agents.length ?? 0);
+    const gridCols = info?.grid?.cols;
+    const gridRows = info?.grid?.rows;
+    const gridLabel = gridCols && gridRows ? `${gridCols}x${gridRows}` : 'desconocido';
+    const worldLabel = info?.world || repo.full_name || 'Miniverse';
+    const versionLabel = info?.version ? `v${info.version}` : null;
+    const apiUrl = world.api_url || world.base_url || current.links?.api || '';
+    const previewUrl = ui.final_url || ui.url || current.links?.ui || current.links?.world || world.ui_url || '';
+    const previewCaption = ui.embeddable
+        ? 'La UI pública se renderiza aquí dentro de la pestaña.'
+        : 'La UI pública existe, pero el navegador la abre fuera del iframe.';
+    const previewBadges = [
+        ui.embeddable
+            ? `<span class="miniverse-iframe-hint">Embed permitido</span>`
+            : `<span class="miniverse-iframe-hint">Embed no disponible</span>`,
+        ui.status_code != null ? `<span class="miniverse-iframe-hint">HTTP ${escapeHtml(String(ui.status_code))}</span>` : '',
+        ui.blocked_by?.length ? `<span class="miniverse-iframe-hint">${escapeHtml(ui.blocked_by.join(' · '))}</span>` : '',
+    ].filter(Boolean).join('');
+    const previewPanel = ui.embeddable && previewUrl
+        ? `<div class="miniverse-iframe-shell">
+            <div class="miniverse-iframe-overlay">
+                <span class="miniverse-iframe-hint">UI en vivo</span>
+                <a class="miniverse-action" href="${escapeHtml(previewUrl)}" target="_blank" rel="noreferrer">Abrir UI</a>
+            </div>
+            <iframe src="${escapeHtml(previewUrl)}" title="Miniverse world preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
+        </div>`
+        : `<div class="miniverse-iframe-fallback">
+            <div>
+                <h4>Vista del mundo</h4>
+                <p>${escapeHtml(ui.embeddable ? 'La UI está lista, pero falta una URL válida para el preview.' : 'La UI pública existe, pero este navegador la está tratando como vista externa.')}</p>
+            </div>
+            <div class="miniverse-fallback-bullets">
+                <div class="miniverse-fallback-bullet"><span class="miniverse-fallback-step">1</span><span>Abre la UI pública en una pestaña nueva.</span></div>
+                <div class="miniverse-fallback-bullet"><span class="miniverse-fallback-step">2</span><span>Usa la URL pública del mundo para seguir su estado en vivo.</span></div>
+            </div>
+            <div class="miniverse-actions" style="margin-top:4px">
+                ${previewUrl ? `<a class="miniverse-action primary" href="${escapeHtml(previewUrl)}" target="_blank" rel="noreferrer">Abrir UI</a>` : ''}
+                ${current.links?.api ? `<a class="miniverse-action" href="${escapeHtml(current.links.api)}" target="_blank" rel="noreferrer">Abrir API</a>` : ''}
+            </div>
+        </div>`;
+    const statItems = [
+        worldLabel,
+        versionLabel,
+        `Agentes ${onlineCount}/${totalCount || visibleAgentCount || 0}`,
+        `Grid ${gridLabel}`,
+        repo.language ? `Lang ${repo.language}` : null,
+        repo.license ? `License ${repo.license}` : null,
+        ui.embeddable != null ? (ui.embeddable ? 'UI embebible' : 'UI externa') : null,
+    ].filter(Boolean);
+
+    const agentCards = agents.length ? agents.map(agent => {
+        const name = agent.agent || agent.name || agent.id || 'agent';
+        const state = String(agent.state || agent.status || 'idle').toLowerCase();
+        const metaBits = [
+            agent.task || agent.current_task || agent.activity || null,
+            agent.role || null,
+        ].filter(Boolean);
+        const positionBits = [];
+        if (agent.x !== undefined && agent.y !== undefined) positionBits.push(`(${agent.x}, ${agent.y})`);
+        if (agent.world) positionBits.push(agent.world);
+        if (agent.last_seen) positionBits.push(fmtTime(agent.last_seen));
+        return `<article class="miniverse-agent-card">
+            <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+                <div>
+                    <div class="miniverse-agent-name">${escapeHtml(name)}</div>
+                    <div class="miniverse-agent-meta">${escapeHtml(metaBits.join(' | ') || 'Sin detalle adicional')}</div>
+                </div>
+                ${badge(state)}
+            </div>
+            ${positionBits.length ? `<div class="miniverse-agent-task">${escapeHtml(positionBits.join(' | '))}</div>` : ''}
+        </article>`;
+    }).join('') : '<div class="empty">No hay agentes visibles en este momento.</div>';
+
+    const infoJson = info && Object.keys(info).length
+        ? `<details class="miniverse-details">
+            <summary>Ver snapshot JSON</summary>
+            <div style="margin-top:10px">
+                <pre class="miniverse-json">${escapeHtml(JSON.stringify(info, null, 2))}</pre>
+            </div>
+        </details>`
+        : '<div class="empty">Sin snapshot del mundo disponible.</div>';
+    const errorBanner = current.meta?.error
+        ? `<div class="blocker" style="margin-bottom:0">Sincronizacion Miniverse: ${escapeHtml(current.meta.error)}</div>`
+        : '';
+    const staleBanner = current.meta?.stale
+        ? `<div class="blocker" style="background:#fff2d8;color:#9a5b00">Mostrando cache temporal mientras vuelve el servicio.</div>`
+        : '';
+    const repoSummary = [
+        repo.description || 'Un mundo pixelado para agentes de IA.',
+        repo.homepage ? `Homepage: ${repo.homepage}` : null,
+        repo.updated_at ? `Updated: ${fmtDate(repo.updated_at)}` : null,
+    ].filter(Boolean).join(' ');
+
+    return `<section class="miniverse-shell">
+        <div class="miniverse-hero">
+            <div class="miniverse-kicker">Miniverse</div>
+            <div class="miniverse-title">${escapeHtml(repo.full_name || 'ianscott313/miniverse')}</div>
+            <div class="miniverse-subtitle">${escapeHtml(repoSummary)}</div>
+            <div class="miniverse-actions">
+                <a class="miniverse-action primary" href="${escapeHtml(current.links?.world || world.base_url || '#')}" target="_blank" rel="noreferrer">Abrir mundo</a>
+                <a class="miniverse-action" href="${escapeHtml(current.links?.repo || repo.html_url || '#')}" target="_blank" rel="noreferrer">Abrir repo</a>
+                ${current.links?.docs ? `<a class="miniverse-action" href="${escapeHtml(current.links.docs)}" target="_blank" rel="noreferrer">Docs</a>` : ''}
+            </div>
+            <div class="miniverse-stats">
+                ${statItems.map(item => `<span class="miniverse-stat">${escapeHtml(item)}</span>`).join('')}
+            </div>
+        </div>
+        ${errorBanner}
+        ${staleBanner}
+        <div class="miniverse-preview-grid">
+            <div class="miniverse-card">
+                <div class="miniverse-card-head">
+                    <div>
+                        <h4>Vista del mundo</h4>
+                        <p>${escapeHtml(previewCaption)}</p>
+                    </div>
+                    ${ui.embeddable
+                        ? `<span class="badge" style="background:${STATUS_COLOR.delivered.bg};color:${STATUS_COLOR.delivered.text}">iframe</span>`
+                        : `<span class="badge" style="background:${STATUS_COLOR.blocked.bg};color:${STATUS_COLOR.blocked.text}">externo</span>`}
+                </div>
+                ${previewPanel}
+                ${previewBadges ? `<div class="miniverse-stats compact" style="margin-top:12px">${previewBadges}</div>` : ''}
+            </div>
+            <div class="miniverse-card">
+                <div class="miniverse-card-head">
+                    <div>
+                        <h4>Estado del mundo</h4>
+                        <p class="miniverse-url">${escapeHtml(apiUrl || current.links?.api || '')}</p>
+                    </div>
+                    ${onlineCount > 0 ? badge('working') : badge('idle')}
+                </div>
+                <div class="miniverse-stats compact">
+                    ${repo.stargazers_count != null ? `<span class="miniverse-stat">${escapeHtml(String(repo.stargazers_count))} stars</span>` : ''}
+                    ${repo.forks_count != null ? `<span class="miniverse-stat">${escapeHtml(String(repo.forks_count))} forks</span>` : ''}
+                    ${repo.open_issues_count != null ? `<span class="miniverse-stat">${escapeHtml(String(repo.open_issues_count))} issues</span>` : ''}
+                </div>
+                <div class="miniverse-stats compact">
+                    ${world.ui_url ? `<span class="miniverse-stat soft">UI ${escapeHtml(world.ui_url)}</span>` : ''}
+                    ${apiUrl ? `<span class="miniverse-stat soft">API ${escapeHtml(apiUrl)}</span>` : ''}
+                </div>
+                ${infoJson}
+            </div>
+        </div>
+        <div class="miniverse-card">
+            <div class="miniverse-card-head">
+                <div>
+                    <h4>Agentes visibles</h4>
+                    <p>${escapeHtml(agents.length ? 'Estado vivo del mundo en tiempo real.' : 'Esperando datos del mundo.')}</p>
+                </div>
+                <span class="badge" style="background:${STATUS_COLOR.planned.bg};color:${STATUS_COLOR.planned.text}">${escapeHtml(onlineCount + '/' + (totalCount || visibleAgentCount || 0))}</span>
+            </div>
+            <div class="miniverse-agent-grid">
+                ${agentCards}
+            </div>
+        </div>
+    </section>`;
 }
 
 function fileLabel(path) {
@@ -705,6 +1137,38 @@ async function fetchFilesSnapshot(force = false) {
         });
 
     return filesRequestPromise;
+}
+
+async function fetchMiniverseSnapshot(force = false) {
+    const now = Date.now();
+    if (miniverseRequestPromise) return miniverseRequestPromise;
+    if (!force && miniverseSnapshot && now - miniverseRequestedAt < 60000) {
+        return miniverseSnapshot;
+    }
+
+    miniverseLoading = true;
+    miniverseError = null;
+    miniverseRequestedAt = now;
+    if (activeTab === 'miniverse') renderTab();
+
+    miniverseRequestPromise = fetch(`${API}/miniverse${force ? '?force=1' : ''}`)
+        .then(async (r) => {
+            const data = await r.json();
+            if (!r.ok) throw new Error(data.error || data.meta?.error || 'No se pudo cargar Miniverse');
+            miniverseSnapshot = data;
+            return data;
+        })
+        .catch((e) => {
+            miniverseError = e.message || 'No se pudo cargar Miniverse';
+            return null;
+        })
+        .finally(() => {
+            miniverseLoading = false;
+            miniverseRequestPromise = null;
+            if (activeTab === 'miniverse') renderTab();
+        });
+
+    return miniverseRequestPromise;
 }
 
 function labelForProjectPath(project, root) {
@@ -861,20 +1325,24 @@ function renderFiles(mem) {
 
 function renderProjects(projects, currentId) {
     const list = (projects && projects.length) ? projects : (memory?.project?.name ? [memory.project] : []);
-    if (!list.length) return '<div class="empty">Sin proyectos iniciados aún.</div>';
-    return list.map(p => {
+    const filteredList = list.filter(p => (showDeletedProjects || p.status !== 'deleted'));
+    
+    if (!filteredList.length) return '<div class="empty">Sin proyectos para mostrar.</div>';
+    
+    return filteredList.map(p => {
         const isCurrent = currentId && p.id === currentId;
+        const isDeleted = p.status === 'deleted';
         const title = p.name || p.id || 'Proyecto sin nombre';
         const status = p.status ? badge(p.status) : badge('idle');
         const created = p.created_at ? fmtDate(p.created_at) : '';
-        const actions = isCurrent ? `
+        const actions = isDeleted ? '' : `
             <div class="project-actions">
-                <button class="btn-outline" onclick="pauseProject()">Pausar</button>
-                <button class="btn-danger" onclick="deleteProject()">Eliminar</button>
-            </div>` : '';
-        return `<div class="project-item">
+                ${isCurrent ? `<button class="btn-outline" onclick="pauseProject()">Pausar</button>` : `<button class="btn-outline" onclick="loadProject('${p.id}')">Cargar</button>`}
+                <button class="btn-danger" onclick="deleteProject(${p.id ? `'${p.id}'` : 'null'})">Eliminar</button>
+            </div>`;
+        return `<div class="project-item ${isDeleted ? 'deleted-fade' : ''}">
             <div class="project-meta">
-                <div class="project-title">${title}</div>
+                <div class="project-title">${title}${isDeleted ? ' <span style="font-size:10px;opacity:0.6">(Eliminado)</span>' : ''}</div>
                 <div style="font-size:12px;color:var(--text-tertiary)">${created}</div>
             </div>
             <div style="display:flex;gap:10px;align-items:center">
@@ -883,6 +1351,28 @@ function renderProjects(projects, currentId) {
             </div>
         </div>`;
     }).join('');
+}
+
+async function loadProject(projectId) {
+    if (!confirm('¿Cargar este proyecto y pausar el actual?')) return;
+    try {
+        const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+        const r = await fetch(`${API}/project/load`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ project_id: projectId }),
+        });
+        const data = await r.json();
+        if (!r.ok) throw new Error(data.error || 'No se pudo cargar el proyecto');
+        fetchInitialState();
+        fetchFilesSnapshot(true);
+    } catch (e) {
+        alert(e.message || 'Error al cargar el proyecto');
+    }
 }
 
 async function pauseProject() {
@@ -902,10 +1392,18 @@ async function pauseProject() {
     }
 }
 
-async function deleteProject() {
-    if (!confirm('¿Eliminar el proyecto y detener su ejecución?')) return;
+function toggleDeletedProjects() {
+    showDeletedProjects = !showDeletedProjects;
+    const btn = document.getElementById('toggle-deleted-btn');
+    if (btn) btn.innerText = showDeletedProjects ? 'Ocultar eliminados' : 'Mostrar eliminados';
+    renderTab();
+}
+
+async function deleteProject(projectId) {
+    if (!confirm('¿Eliminar el proyecto y limpiar su workspace?')) return;
     try {
         const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+        const body = projectId ? { project_id: projectId } : {};
         const r = await fetch(`${API}/project/delete`, {
             method: 'POST',
             headers: {
@@ -913,6 +1411,7 @@ async function deleteProject() {
                 'X-CSRF-TOKEN': csrf,
                 'X-Requested-With': 'XMLHttpRequest',
             },
+            body: JSON.stringify(body),
         });
         if (!r.ok) throw new Error('No se pudo eliminar el proyecto');
     } catch (e) {
@@ -989,15 +1488,25 @@ function setTab(tab, btn) {
     renderTab();
     if (tab === 'files') {
         fetchFilesSnapshot();
+    } else if (tab === 'miniverse') {
+        fetchMiniverseSnapshot();
     }
 }
 
 function renderTab() {
     if (!memory) return;
     const content = document.getElementById('tab-content');
-    if (activeTab === 'tasks')      content.innerHTML = renderTasks(memory.tasks||[]);
-    else if (activeTab === 'log')   content.innerHTML = `<div class="log-feed">${renderLog(memory.log||[])}</div>`;
-    else                            content.innerHTML = renderFiles(filesSnapshot || memory);
+    if (activeTab === 'tasks') {
+        content.innerHTML = renderTasks(memory.tasks||[]);
+    } else if (activeTab === 'log') {
+        content.innerHTML = `<div class="log-feed">${renderLog(memory.log||[])}</div>`;
+    } else if (activeTab === 'files') {
+        content.innerHTML = renderFiles(filesSnapshot || memory);
+    } else if (activeTab === 'miniverse') {
+        content.innerHTML = renderMiniverse(miniverseSnapshot);
+    } else {
+        content.innerHTML = renderTasks(memory.tasks||[]);
+    }
 }
 
 function render(mem) {
@@ -1009,6 +1518,8 @@ function render(mem) {
     renderTab();
     if (activeTab === 'files') {
         fetchFilesSnapshot();
+    } else if (activeTab === 'miniverse') {
+        fetchMiniverseSnapshot();
     }
 }
 
