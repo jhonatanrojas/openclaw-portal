@@ -232,6 +232,8 @@
     border-radius: var(--radius-lg);
     background: linear-gradient(180deg, rgba(250, 247, 240, .95), rgba(241, 239, 232, .9));
     padding: 12px;
+    position: relative;
+    overflow: hidden;
 }
 .miniverse-world-board {
     display: grid;
@@ -241,7 +243,7 @@
     aspect-ratio: calc(var(--cols, 12) / var(--rows, 8));
     min-height: 320px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     border-radius: 14px;
     padding: 6px;
     background:
@@ -267,8 +269,7 @@
 .miniverse-world-tile.desk { background: linear-gradient(180deg, #e8d3b3, #d7b989); }
 .miniverse-world-tile.water { background: linear-gradient(180deg, #d7eeff, #bfdfff); }
 .miniverse-world-tile.wall { background: linear-gradient(180deg, #dfe2ea, #cad0da); }
-.miniverse-world-object,
-.miniverse-world-citizen {
+.miniverse-world-object {
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -278,8 +279,6 @@
     min-height: 0;
     padding: 4px;
     text-align: center;
-}
-.miniverse-world-object {
     background: rgba(255,255,255,.78);
     border: 1px solid rgba(15, 23, 42, .08);
     box-shadow: 0 4px 10px rgba(15, 23, 42, .08);
@@ -291,29 +290,42 @@
     color: var(--text-secondary);
     letter-spacing: .04em;
 }
+/* Citizens float above the grid as absolute overlays */
 .miniverse-world-citizen {
-    color: #0f172a;
-    font-size: 10px;
-    font-weight: 700;
-    padding-bottom: 10px;
+    position: absolute;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
 }
 .miniverse-world-citizen-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
+    gap: 5px;
+    padding: 3px 8px 3px 5px;
     border-radius: 999px;
-    background: rgba(255,255,255,.92);
-    border: 1px solid rgba(15, 23, 42, .08);
-    box-shadow: 0 6px 12px rgba(15, 23, 42, .08);
+    background: rgba(255,255,255,.96);
+    border: 1px solid rgba(15, 23, 42, .12);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, .14), 0 0 0 2px rgba(255,255,255,.6);
+    font-size: 11px;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+    transform: translateX(-50%);
+}
+.miniverse-world-citizen-emoji {
+    font-size: 18px;
+    line-height: 1;
 }
 .miniverse-world-citizen-dot {
     width: 8px;
     height: 8px;
     border-radius: 999px;
     background: #22c55e;
-    box-shadow: 0 0 0 6px rgba(34, 197, 94, .12);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, .2);
     animation: miniversePulse 1.8s ease-in-out infinite;
+    flex-shrink: 0;
 }
 .miniverse-world-legend {
     display: grid;
@@ -1511,14 +1523,26 @@ function renderMiniverseWorld(world) {
         </div>`;
     }).join('');
 
+    const CITIZEN_EMOJI = { arch: '🗂️', byte: '💻', pixel: '🎨' };
+    const STATE_DOT_COLOR = {
+        working: '#22c55e', thinking: '#7f77dd', speaking: '#1d9e75',
+        idle: '#b4b2a9', error: '#e24b4a', planning: '#d48a00',
+    };
+
     const citizenMarkup = citizens.map((citizen, index) => {
         const pos = miniverseWorldPosition(citizen, anchors, index, dims);
         const name = citizen?.name || citizen?.agentId || citizen?.agent || 'citizen';
+        const agentId = String(citizen?.agentId || citizen?.agent || '').toLowerCase();
         const state = citizen?.state || citizen?.status || 'idle';
-        const sprite = citizen?.sprite || 'sprite';
-        return `<div class="miniverse-world-citizen" style="grid-column:${pos.x + 1};grid-row:${pos.y + 1};">
+        const emoji = CITIZEN_EMOJI[agentId] || '🤖';
+        const dotColor = STATE_DOT_COLOR[state] || STATE_DOT_COLOR.idle;
+        // Absolute % — center of the cell horizontally, slightly above bottom of cell
+        const leftPct = ((pos.x + 0.5) / dims.cols * 100).toFixed(2);
+        const topPct  = ((pos.y + 0.75) / dims.rows * 100).toFixed(2);
+        return `<div class="miniverse-world-citizen" style="left:${leftPct}%;top:${topPct}%;">
             <div class="miniverse-world-citizen-badge">
-                <span class="miniverse-world-citizen-dot"></span>
+                <span class="miniverse-world-citizen-emoji">${emoji}</span>
+                <span class="miniverse-world-citizen-dot" style="background:${dotColor};box-shadow:0 0 0 3px ${dotColor}33;"></span>
                 <span>${escapeHtml(name)}</span>
             </div>
         </div>`;
@@ -1572,8 +1596,11 @@ function renderMiniverse(snapshot) {
     const agents = Array.isArray(world.agents) ? world.agents : [];
     const events = Array.isArray(world.events) ? world.events : [];
     const previewUrl = ui.final_url || ui.url || current.links?.ui || current.links?.world || world.ui_url || '';
-    const isMock = meta?.fallback === 'local-mock' || String(previewUrl).startsWith('local-mock://');
-    const livePreview = Boolean(previewUrl) && !isMock && !meta.error && !ui.error;
+    // Only treat as full mock when ALL critical sources failed (meta.fallback === 'local-mock')
+    // Partial failures should still try to show the live preview
+    const isFullMock = meta?.fallback === 'local-mock' && !meta?.partial_fallback;
+    const isMock = isFullMock || String(previewUrl).startsWith('local-mock://');
+    const livePreview = Boolean(previewUrl) && !isMock && !ui.error;
     const mockPanel = isMock ? `<div class="miniverse-mock-shell">
         <div class="miniverse-mock-header">
             <div>
@@ -1632,8 +1659,28 @@ function renderMiniverse(snapshot) {
             </div>
         </div>`;
 
+    // Show both mock world view and live preview when available
+    // Priority: live iframe > mock world > offline panel
+    const hasLiveIframe = livePreview;
+    const hasMockWorld = Boolean(mockPanel);
+    let content = '';
+    if (hasLiveIframe && hasMockWorld) {
+        // Show the iframe as primary, with mock world as supplementary fallback below
+        content = previewPanel + `<div style="margin-top:12px">${mockPanel}</div>`;
+    } else if (hasLiveIframe) {
+        content = previewPanel;
+    } else if (hasMockWorld) {
+        content = mockPanel;
+    } else {
+        content = previewPanel; // Shows offline shell
+    }
+    // Show partial error info if present
+    const partialWarning = meta?.partial_fallback && meta?.error
+        ? `<div style="font-size:12px;color:#9A5B00;padding:8px 12px;background:#FFF2D8;border-radius:6px;margin-bottom:8px">⚠️ Algunos datos se cargaron del mock local: ${escapeHtml(meta.error)}</div>`
+        : '';
     return `<section class="miniverse-shell">
-        ${mockPanel || previewPanel}
+        ${partialWarning}
+        ${content}
     </section>`;
 }
 
