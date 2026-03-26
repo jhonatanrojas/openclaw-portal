@@ -1,0 +1,39 @@
+{
+  "info": {
+    "name": "OpenClaw Portal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Agents",
+      "item": [
+        {
+          "name": "List Agents",
+          "request": {
+            "method": "GET",
+            "url": "http://openclaw.deploymatrix.com/api/agents"
+          }
+        },
+        {
+          "name": "Get Agent by ID",
+          "request": {
+            "method": "GET",
+            "url": "http://openclaw.deploymatrix.com/api/agents/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "item": [
+        {
+          "name": "List Documentation",
+          "request": {
+            "method": "GET",
+            "url": "http://openclaw.deploymatrix.com/api/documentation"
+          }
+        }
+      ]
+    }
+  ]
+}

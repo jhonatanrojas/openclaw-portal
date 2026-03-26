@@ -1,0 +1,153 @@
+{
+  "project": {
+    "name": "OpenClaw Portal",
+    "version": "1.0.0",
+    "description": "Portal de gestión y documentación para OpenClaw",
+    "repository": "https://github.com/jhonatanrojas/openclaw-portal",
+    "license": "MIT"
+  },
+  
+  "paths": {
+    "project_root": "/var/www/openclaw-portal",
+    "workspace_backup": "/var/www/openclaw-portal/storage/openclaw/workspace",
+    "documentation": "/var/www/openclaw-portal/storage/openclaw/docs",
+    "backups": "/var/www/openclaw-portal/storage/openclaw/backups",
+    "logs": "/var/www/openclaw-portal/storage/logs",
+    "scripts": "/root/.openclaw/workspace/scripts"
+  },
+  
+  "database": {
+    "connection": "sqlite",
+    "database": "/var/www/openclaw-portal/database/database.sqlite",
+    "migrations": true,
+    "seeding": true
+  },
+  
+  "services": {
+    "web_server": {
+      "type": "apache",
+      "port": 8082,
+      "php_version": "8.2",
+      "php_handler": "fpm"
+    },
+    "authentication": {
+      "provider": "laravel/breeze",
+      "driver": "session",
+      "model": "App\\Models\\User",
+      "default_user": {
+        "email": "admin@openclaw.test",
+        "password": "password",
+        "name": "Administrator"
+      }
+    }
+  },
+  
+  "openclaw_integration": {
+    "workspace_path": "/root/.openclaw/workspace",
+    "config_files": [
+      "AGENTS.md",
+      "SOUL.md", 
+      "USER.md",
+      "TOOLS.md",
+      "MEMORY.md",
+      "HEARTBEAT.md"
+    ],
+    "directories": [
+      "skills",
+      "memory",
+      "notes",
+      "projects"
+    ],
+    "sync_interval": "daily",
+    "backup_before_sync": true
+  },
+  
+  "phases": {
+    "phase_1": {
+      "name": "Fundación",
+      "weeks": "1-3",
+      "tasks": 15,
+      "status": "pending",
+      "start_date": null,
+      "end_date": null
+    },
+    "phase_2": {
+      "name": "Herramientas", 
+      "weeks": "4-7",
+      "tasks": 20,
+      "status": "pending",
+      "start_date": null,
+      "end_date": null
+    },
+    "phase_3": {
+      "name": "Avanzado",
+      "weeks": "8-12", 
+      "tasks": 25,
+      "status": "pending",
+      "start_date": null,
+      "end_date": null
+    }
+  },
+  
+  "team": {
+    "project_lead": "RangerDev",
+    "backend_developer": "pending",
+    "frontend_developer": "pending", 
+    "devops": "pending",
+    "documentation": "pending"
+  },
+  
+  "monitoring": {
+    "health_check_url": "http://localhost:8082/health",
+    "status_url": "http://localhost:8082/status",
+    "metrics": {
+      "uptime": true,
+      "response_time": true,
+      "error_rate": true,
+      "user_activity": true
+    },
+    "alerts": {
+      "email": "admin@openclaw.test",
+      "telegram": false,
+      "discord": false
+    }
+  },
+  
+  "deployment": {
+    "environment": "development",
+    "auto_update": false,
+    "backup_strategy": "daily",
+    "rollback_enabled": true,
+    "ci_cd": {
+      "provider": "github_actions",
+      "branch": "main",
+      "auto_deploy": false
+    }
+  },
+  
+  "features": {
+    "documentation_module": true,
+    "config_editor": true,
+    "agent_monitor": true,
+    "file_explorer": true,
+    "api_endpoints": true,
+    "plugin_system": false,
+    "two_factor_auth": false,
+    "audit_logging": false,
+    "internationalization": false
+  },
+  
+  "timeline": {
+    "start_date": "2026-03-25",
+    "estimated_completion": "2026-06-25",
+    "current_phase": "setup",
+    "last_updated": "2026-03-24T22:36:00Z"
+  },
+  
+  "notes": [
+    "Proyecto iniciado el 2026-03-24",
+    "Fase 1: Setup básico y autenticación",
+    "Integrar con OpenClaw existente",
+    "Priorizar documentación y configuración básica"
+  ]
+}

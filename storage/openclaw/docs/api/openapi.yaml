@@ -1,0 +1,178 @@
+openapi: 3.0.0
+info:
+  title: OpenClaw Portal API
+  description: API para gestión de agentes, tareas y documentación
+  version: 1.0.0
+  contact:
+    name: OpenClaw Team
+    url: https://openclaw.deploymatrix.com
+    email: api@openclaw.deploymatrix.com
+
+servers:
+  - url: http://openclaw.deploymatrix.com/api
+    description: Servidor de producción
+
+paths:
+  /agents:
+    get:
+      summary: Listar agentes
+      description: Obtiene lista de agentes con filtros opcionales
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [backend, frontend, devops, documentation, general]
+          description: Filtrar por tipo de agente
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, inactive, busy]
+          description: Filtrar por estado
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          description: Número de página
+      responses:
+        '200':
+          description: Lista de agentes obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Agent'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+  /agents/{id}:
+    get:
+      summary: Obtener agente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID del agente
+      responses:
+        '200':
+          description: Agente obtenido exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/Agent'
+
+  /documentation:
+    get:
+      summary: Listar documentación
+      description: Obtiene lista de documentación con filtros de búsqueda
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [installation, configuration, api, agents, troubleshooting]
+          description: Filtrar por categoría
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Término de búsqueda en título y contenido
+      responses:
+        '200':
+          description: Lista de documentación obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Documentation'
+
+components:
+  schemas:
+    Agent:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Backend Specialist"
+        type:
+          type: string
+          enum: [backend, frontend, devops, documentation, general]
+          example: "backend"
+        status:
+          type: string
+          enum: [active, inactive, busy]
+          example: "active"
+        task_count:
+          type: integer
+          example: 12
+        completed_tasks:
+          type: integer
+          example: 45
+        last_active_at:
+          type: string
+          format: date-time
+          example: "2026-03-25T01:30:00+02:00"
+
+    Documentation:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Guía de instalación"
+        content:
+          type: string
+          example: "Contenido de la documentación..."
+        category:
+          type: string
+          enum: [installation, configuration, api, agents, troubleshooting]
+          example: "installation"
+        version:
+          type: string
+          example: "1.0.0"
+
+    Pagination:
+      type: object
+      properties:
+        current_page:
+          type: integer
+          example: 1
+        last_page:
+          type: integer
+          example: 3
+        per_page:
+          type: integer
+          example: 15
+        total:
+          type: integer
+          example: 42

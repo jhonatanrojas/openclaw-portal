@@ -140,87 +140,208 @@
 .models-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
 .models-status { font-size: 12px; color: var(--text-tertiary); }
 .miniverse-shell { display: grid; gap: 12px; }
-.miniverse-hero {
-    border-radius: var(--radius-lg);
-    padding: 18px;
-    color: #f8fafc;
-    background:
-        radial-gradient(circle at top right, rgba(125, 211, 252, 0.16), transparent 32%),
-        linear-gradient(135deg, #0f172a 0%, #111827 55%, #1e293b 100%);
-    border: 0.5px solid #243041;
-}
-.miniverse-kicker {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: .16em;
-    color: #7dd3fc;
-    margin-bottom: 8px;
-}
-.miniverse-title { font-size: 22px; font-weight: 700; line-height: 1.1; margin-bottom: 6px; }
-.miniverse-subtitle { font-size: 13px; color: rgba(248, 250, 252, .74); max-width: 68ch; }
-.miniverse-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-.miniverse-action {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
-    border-radius: 999px;
-    border: 1px solid rgba(226, 232, 240, .18);
-    background: rgba(15, 23, 42, .45);
-    color: #e2e8f0;
-    text-decoration: none;
-    font-size: 12px;
-}
-.miniverse-action.primary { background: #7dd3fc; color: #0f172a; border-color: #7dd3fc; font-weight: 600; }
-.miniverse-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 12px; }
-.miniverse-card {
+.miniverse-mock-shell {
     border: 0.5px solid var(--border);
     border-radius: var(--radius-lg);
     background: var(--bg-primary);
-    padding: 12px;
+    padding: 14px;
+    display: grid;
+    gap: 12px;
 }
-.miniverse-card-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
-.miniverse-card h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-secondary); }
-.miniverse-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
-.miniverse-stats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-.miniverse-stat {
+.miniverse-mock-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.miniverse-mock-kicker {
     font-size: 11px;
-    padding: 3px 8px;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--text-tertiary);
+    margin-bottom: 4px;
+}
+.miniverse-mock-title { font-size: 20px; font-weight: 700; line-height: 1.15; color: var(--text-primary); }
+.miniverse-mock-subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5; }
+.miniverse-mock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
     background: rgba(125, 211, 252, .12);
     color: #0f172a;
     border: 1px solid rgba(125, 211, 252, .25);
 }
-.miniverse-stat.soft {
-    background: rgba(15, 23, 42, .08);
-    color: var(--text-secondary);
-    border-color: rgba(15, 23, 42, .12);
-}
-.miniverse-stats.compact { margin-top: 8px; }
-.miniverse-agent-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.miniverse-agent-card {
+.miniverse-mock-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 12px; }
+.miniverse-mock-block {
     border: 0.5px solid var(--border);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     background: var(--bg-secondary);
+    padding: 12px;
+}
+.miniverse-mock-block h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-secondary); }
+.miniverse-mock-block p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-top: 6px; }
+.miniverse-mock-agent-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.miniverse-mock-agent-card {
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .65);
     padding: 10px;
 }
-.miniverse-agent-name { font-weight: 600; font-size: 12px; }
-.miniverse-agent-meta { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
-.miniverse-agent-task { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
-.miniverse-json {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    background: #0b1220;
-    color: #dbeafe;
+.miniverse-mock-agent-name { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+.miniverse-mock-agent-meta { font-size: 11px; color: var(--text-secondary); margin-top: 4px; line-height: 1.45; }
+.miniverse-mock-event-list { display: grid; gap: 8px; margin-top: 10px; }
+.miniverse-mock-event-card {
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    background: rgba(15, 23, 42, .03);
+    padding: 10px;
+}
+.miniverse-mock-event-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text-secondary); }
+.miniverse-mock-event-body { font-size: 12px; color: var(--text-secondary); line-height: 1.45; margin-top: 6px; }
+.miniverse-world-shell {
+    display: grid;
+    gap: 12px;
+}
+.miniverse-world-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.miniverse-world-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.miniverse-world-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+.miniverse-world-stage {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(250, 247, 240, .95), rgba(241, 239, 232, .9));
+    padding: 12px;
+}
+.miniverse-world-board {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 12), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--rows, 8), minmax(0, 1fr));
+    gap: 3px;
+    aspect-ratio: calc(var(--cols, 12) / var(--rows, 8));
+    min-height: 320px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    padding: 6px;
+    background:
+        radial-gradient(circle at top right, rgba(125, 211, 252, .12), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,.76), rgba(255,255,255,.55));
+    border: 0.5px solid rgba(15, 23, 42, .08);
+}
+.miniverse-world-tile {
     border-radius: 8px;
-    padding: 10px;
-    overflow: auto;
-    max-height: 280px;
-    white-space: pre-wrap;
-    word-break: break-word;
+    position: relative;
+    overflow: hidden;
+    border: 0.5px solid rgba(15, 23, 42, .04);
 }
-.miniverse-preview-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); gap: 12px; align-items: start; }
-.miniverse-side-stack { display: grid; gap: 12px; }
+.miniverse-world-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0));
+    opacity: .75;
+}
+.miniverse-world-tile.grass { background: linear-gradient(180deg, #dff4d9, #cdeec3); }
+.miniverse-world-tile.path { background: linear-gradient(180deg, #f0ddba, #e4ca92); }
+.miniverse-world-tile.desk { background: linear-gradient(180deg, #e8d3b3, #d7b989); }
+.miniverse-world-tile.water { background: linear-gradient(180deg, #d7eeff, #bfdfff); }
+.miniverse-world-tile.wall { background: linear-gradient(180deg, #dfe2ea, #cad0da); }
+.miniverse-world-object,
+.miniverse-world-citizen {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    border-radius: 10px;
+    z-index: 2;
+    min-width: 0;
+    min-height: 0;
+    padding: 4px;
+    text-align: center;
+}
+.miniverse-world-object {
+    background: rgba(255,255,255,.78);
+    border: 1px solid rgba(15, 23, 42, .08);
+    box-shadow: 0 4px 10px rgba(15, 23, 42, .08);
+}
+.miniverse-world-object-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: .04em;
+}
+.miniverse-world-citizen {
+    color: #0f172a;
+    font-size: 10px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.miniverse-world-citizen-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(15, 23, 42, .08);
+    box-shadow: 0 6px 12px rgba(15, 23, 42, .08);
+}
+.miniverse-world-citizen-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #22c55e;
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, .12);
+    animation: miniversePulse 1.8s ease-in-out infinite;
+}
+.miniverse-world-legend {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+.miniverse-world-legend-item {
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-primary);
+    padding: 10px;
+}
+.miniverse-world-legend-item strong {
+    display: block;
+    font-size: 12px;
+    color: var(--text-primary);
+}
+.miniverse-world-legend-item span {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+@keyframes miniversePulse {
+    0%, 100% { transform: scale(1); opacity: .85; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
 .miniverse-iframe-shell {
     position: relative;
     border-radius: 12px;
@@ -239,91 +360,20 @@
     border: 0;
     background: #050816;
 }
-.miniverse-iframe-overlay {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    right: 12px;
-    z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-    pointer-events: none;
-}
-.miniverse-iframe-overlay .badge,
-.miniverse-iframe-overlay .miniverse-action {
-    pointer-events: auto;
-}
-.miniverse-iframe-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: rgba(15, 23, 42, .72);
-    color: #e2e8f0;
-    border: 1px solid rgba(226, 232, 240, .16);
-    backdrop-filter: blur(8px);
-    font-size: 11px;
-}
-.miniverse-iframe-fallback {
+.miniverse-offline-shell {
     min-height: 560px;
     padding: 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 14px;
-    color: #e2e8f0;
-    background:
-        radial-gradient(circle at top right, rgba(125, 211, 252, 0.16), transparent 34%),
-        linear-gradient(135deg, #020617 0%, #111827 58%, #1e293b 100%);
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, .18);
+    background: rgba(15, 23, 42, .03);
 }
-.miniverse-iframe-fallback h4 { font-size: 18px; margin-bottom: 4px; color: #f8fafc; }
-.miniverse-iframe-fallback p { color: rgba(226, 232, 240, .76); line-height: 1.55; }
-.miniverse-fallback-bullets { display: grid; gap: 8px; margin-top: 4px; }
-.miniverse-fallback-bullet {
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: rgba(15, 23, 42, .38);
-    border: 1px solid rgba(226, 232, 240, .12);
-    font-size: 12px;
-    color: #dbeafe;
-}
-.miniverse-fallback-step {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    border-radius: 999px;
-    background: rgba(125, 211, 252, .18);
-    color: #7dd3fc;
-    flex: 0 0 auto;
-    font-size: 11px;
-    font-weight: 600;
-    margin-top: 1px;
-}
-.miniverse-details {
-    margin-top: 12px;
-    border-top: 1px solid var(--border);
-    padding-top: 10px;
-}
-.miniverse-details summary {
-    cursor: pointer;
-    font-size: 12px;
-    color: var(--text-secondary);
-    list-style: none;
-}
-.miniverse-details summary::-webkit-details-marker { display: none; }
-.miniverse-url {
-    font-size: 12px;
-    color: var(--text-secondary);
-    word-break: break-word;
-}
+.miniverse-offline-shell h4 { font-size: 16px; color: var(--text-primary); }
+.miniverse-offline-shell p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+.miniverse-local-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .gateway-panel { display: grid; gap: 12px; }
 .gateway-toolbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
 .gateway-status { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -385,20 +435,19 @@
             padding: 6px 10px; border-radius: 6px; font-size: 12px; }
 
         @media (max-width: 1080px) {
-            .miniverse-preview-grid { grid-template-columns: 1fr; }
+            .miniverse-mock-grid { grid-template-columns: 1fr; }
             .miniverse-iframe-shell,
             .miniverse-iframe-shell iframe,
-            .miniverse-iframe-fallback { min-height: 460px; }
+            .miniverse-offline-shell,
+            .miniverse-shell { min-height: 460px; }
         }
         @media (max-width: 760px) { .gateway-chat-grid { grid-template-columns: 1fr; } }
         @media (max-width: 720px) {
-            .agents-grid,
-            .miniverse-agent-grid { grid-template-columns: 1fr; }
-            .miniverse-grid { grid-template-columns: 1fr; }
-            .miniverse-iframe-overlay { flex-direction: column; align-items: stretch; }
+            .miniverse-mock-agent-grid { grid-template-columns: 1fr; }
             .miniverse-iframe-shell,
             .miniverse-iframe-shell iframe,
-            .miniverse-iframe-fallback { min-height: 380px; }
+            .miniverse-offline-shell,
+            .miniverse-shell { min-height: 380px; }
         }
         @media (max-width: 600px) { .agents-grid { grid-template-columns: 1fr; } }
     </style>
@@ -565,6 +614,161 @@ let miniverseLoading = false;
 let miniverseError = null;
 let miniverseRequestedAt = 0;
 let miniverseRequestPromise = null;
+
+const MINIVERSE_LOCAL_MOCK = {
+    repo: {
+        full_name: 'ianscott313/miniverse',
+        description: 'A tiny pixel world for your agents.',
+        language: 'TypeScript',
+        html_url: 'https://github.com/ianscott313/miniverse',
+    },
+    world: {
+        base_url: 'local-mock://miniverse',
+        api_url: 'local-mock://miniverse/api',
+        ui_url: 'local-mock://miniverse/ui',
+        info: {
+            world: 'Miniverse local mock',
+            status: 'active',
+            version: 'mock',
+            grid: { cols: 12, rows: 8 },
+            agents: { online: 3, total: 3 },
+            theme: 'cozy-startup',
+        },
+        gridCols: 12,
+        gridRows: 8,
+        floor: [
+            ['grass', 'grass', 'grass', 'grass', 'path', 'path', 'path', 'path', 'grass', 'grass', 'grass', 'grass'],
+            ['grass', 'grass', 'grass', 'path', 'path', 'path', 'path', 'path', 'path', 'grass', 'grass', 'grass'],
+            ['grass', 'grass', 'path', 'path', 'path', 'path', 'path', 'path', 'path', 'path', 'grass', 'grass'],
+            ['grass', 'grass', 'path', 'path', 'path', 'desk', 'desk', 'path', 'path', 'path', 'grass', 'grass'],
+            ['grass', 'path', 'path', 'path', 'path', 'desk', 'desk', 'path', 'path', 'path', 'path', 'grass'],
+            ['grass', 'path', 'path', 'path', 'path', 'path', 'path', 'path', 'path', 'path', 'path', 'grass'],
+            ['grass', 'grass', 'path', 'path', 'path', 'path', 'path', 'path', 'path', 'grass', 'grass', 'grass'],
+            ['grass', 'grass', 'grass', 'grass', 'path', 'path', 'path', 'path', 'grass', 'grass', 'grass', 'grass'],
+        ],
+        propImages: {
+            wooden_desk_single: 'world_assets/props/prop_0_wooden_desk_single.png',
+            ergonomic_chair: 'world_assets/props/prop_1_ergonomic_chair.png',
+            tall_potted_plant: 'world_assets/props/prop_2_tall_potted_plant.png',
+            coffee_machine: 'world_assets/props/prop_3_coffee_machine.png',
+            whiteboard: 'world_assets/props/prop_4_whiteboard.png',
+        },
+        props: [
+            {
+                id: 'wooden_desk_single',
+                x: 5.0,
+                y: 3.0,
+                w: 2,
+                h: 2,
+                layer: 'below',
+                anchors: [
+                    { name: 'desk_0_0', ox: 0.5, oy: 1.1, type: 'work' },
+                    { name: 'desk_0_1', ox: 1.4, oy: 1.1, type: 'work' },
+                ],
+            },
+            {
+                id: 'ergonomic_chair',
+                x: 5.2,
+                y: 4.3,
+                w: 1,
+                h: 1,
+                layer: 'below',
+                anchors: [
+                    { name: 'chair_0_0', ox: 0.5, oy: 0.7, type: 'rest' },
+                ],
+            },
+            {
+                id: 'tall_potted_plant',
+                x: 1.0,
+                y: 1.0,
+                w: 1,
+                h: 1.5,
+                layer: 'above',
+                anchors: [
+                    { name: 'social_0_0', ox: 0.5, oy: 1.2, type: 'social' },
+                ],
+            },
+            {
+                id: 'coffee_machine',
+                x: 9.0,
+                y: 1.0,
+                w: 1,
+                h: 1.5,
+                layer: 'above',
+                anchors: [
+                    { name: 'coffee_0_0', ox: 0.5, oy: 1.0, type: 'social' },
+                ],
+            },
+            {
+                id: 'whiteboard',
+                x: 8.2,
+                y: 4.1,
+                w: 1.4,
+                h: 1.5,
+                layer: 'above',
+                anchors: [
+                    { name: 'board_0_0', ox: 0.5, oy: 1.0, type: 'utility' },
+                ],
+            },
+        ],
+        citizens: [
+            { agentId: 'pixel', name: 'PIXEL', sprite: 'nova', position: 'desk_0_0', type: 'agent' },
+            { agentId: 'byte', name: 'BYTE', sprite: 'dexter', position: 'board_0_0', type: 'agent' },
+            { agentId: 'arch', name: 'ARCH', sprite: 'rio', position: 'coffee_0_0', type: 'agent' },
+        ],
+        wanderPoints: [
+            { x: 1, y: 1 },
+            { x: 10, y: 2 },
+            { x: 9, y: 6 },
+            { x: 3, y: 6 },
+        ],
+        observe: {
+            status: 'ok',
+            source: 'local-mock',
+            updated_at: new Date().toISOString(),
+        },
+        agents: [
+            { agent: 'pixel', name: 'PIXEL', role: 'designer', state: 'working', task: 'Observing and rendering the world', x: 4, y: 3 },
+            { agent: 'byte', name: 'BYTE', role: 'programmer', state: 'thinking', task: 'Implementing task flow', x: 7, y: 5 },
+            { agent: 'arch', name: 'ARCH', role: 'coordinator', state: 'planning', task: 'Planning and reviewing', x: 2, y: 1 },
+        ],
+        events: [
+            { id: 'mock-1', type: 'thinking', agent: 'arch', message: 'Plan de prueba cargado en el mock local.' },
+            { id: 'mock-2', type: 'tool', agent: 'pixel', message: 'Render local disponible mientras el mundo real responde.' },
+            { id: 'mock-3', type: 'message', agent: 'byte', message: 'Citizens y anchors resueltos desde world.json.' },
+        ],
+        lastEventId: 'mock-3',
+    },
+    links: {
+        repo: 'https://github.com/ianscott313/miniverse',
+        api: 'local-mock://miniverse/api',
+        world: 'local-mock://miniverse/ui',
+        ui: 'local-mock://miniverse/ui',
+        docs: 'https://minivrs.com/docs/',
+    },
+    ui: {
+        status: 'ok',
+        url: 'local-mock://miniverse/ui',
+        final_url: 'local-mock://miniverse/ui',
+    },
+    meta: {
+        source: 'local-mock',
+        fallback: 'local-mock',
+        stale: true,
+        generated_at: new Date().toISOString(),
+    },
+};
+
+function buildLocalMiniverseSnapshot(reason = '') {
+    const snapshot = JSON.parse(JSON.stringify(MINIVERSE_LOCAL_MOCK));
+    snapshot.meta.reason = reason || 'offline';
+    snapshot.world.info.subtitle = 'Mundo simulado localmente para mantener vivo el tab cuando la fuente pública no responde.';
+    snapshot.world.events = snapshot.world.events.map((event, index) => ({
+        ...event,
+        ts: new Date(Date.now() - ((snapshot.world.events.length - index) * 45000)).toISOString(),
+    }));
+    return snapshot;
+}
 const MODEL_SELECTION_KEY = 'devsquad:model-selection:v1';
 const LOG_MAX = 200;
 const LOG_AGENT_LIMIT = 5;
@@ -1202,199 +1406,234 @@ function renderGatewayTab() {
     `;
 }
 
-function normalizeMiniverseAgents(payload) {
-    if (Array.isArray(payload)) return payload;
-    if (Array.isArray(payload?.agents)) return payload.agents;
-    if (payload && typeof payload === 'object') {
-        const statKeys = ['online', 'total', 'version', 'world', 'grid'];
-        const looksLikeStats = statKeys.every(key => key in payload) || (
-            'online' in payload && 'total' in payload && !('state' in payload) && !('task' in payload) && !('agent' in payload)
-        );
-        if (looksLikeStats) return [];
-        return Object.entries(payload).map(([name, value]) => {
-            if (value && typeof value === 'object') {
-                return { agent: name, name, ...value };
-            }
-            return { agent: name, name, state: value };
-        });
+function miniverseWorldDimensions(world) {
+    const cols = Number(world?.gridCols || world?.info?.grid?.cols || 12);
+    const rows = Number(world?.gridRows || world?.info?.grid?.rows || 8);
+    return {
+        cols: Number.isFinite(cols) && cols > 0 ? Math.floor(cols) : 12,
+        rows: Number.isFinite(rows) && rows > 0 ? Math.floor(rows) : 8,
+    };
+}
+
+function miniverseWorldAnchors(world) {
+    const anchors = new Map();
+    const props = Array.isArray(world?.props) ? world.props : [];
+    props.forEach((prop) => {
+        const propX = Number(prop?.x ?? 0);
+        const propY = Number(prop?.y ?? 0);
+        for (const anchor of Array.isArray(prop?.anchors) ? prop.anchors : []) {
+            const name = String(anchor?.name || '').trim();
+            if (!name) continue;
+            anchors.set(name, {
+                x: propX + Number(anchor?.ox ?? 0),
+                y: propY + Number(anchor?.oy ?? 0),
+                type: String(anchor?.type || prop?.layer || 'work'),
+                prop: String(prop?.id || prop?.sprite || 'prop'),
+            });
+        }
+    });
+    return anchors;
+}
+
+function miniverseWorldTile(floor, row, col) {
+    const rowData = Array.isArray(floor?.[row]) ? floor[row] : [];
+    const tile = rowData?.[col];
+    return typeof tile === 'string' && tile.trim() ? tile.trim() : ((row + col) % 5 === 0 ? 'path' : 'grass');
+}
+
+function miniverseWorldPosition(entry, anchors, fallbackIndex, dims) {
+    if (!entry || typeof entry !== 'object') {
+        return {
+            x: fallbackIndex % dims.cols,
+            y: Math.floor(fallbackIndex / dims.cols) % dims.rows,
+        };
     }
-    return [];
+
+    const directX = Number(entry.x);
+    const directY = Number(entry.y);
+    if (Number.isFinite(directX) && Number.isFinite(directY)) {
+        return {
+            x: Math.max(0, Math.min(dims.cols - 1, Math.round(directX))),
+            y: Math.max(0, Math.min(dims.rows - 1, Math.round(directY))),
+        };
+    }
+
+    const position = entry.position;
+    if (typeof position === 'string' && position.trim() && anchors.has(position.trim())) {
+        const anchor = anchors.get(position.trim());
+        return {
+            x: Math.max(0, Math.min(dims.cols - 1, Math.round(anchor.x))),
+            y: Math.max(0, Math.min(dims.rows - 1, Math.round(anchor.y))),
+        };
+    }
+
+    if (position && typeof position === 'object') {
+        const posX = Number(position.x);
+        const posY = Number(position.y);
+        if (Number.isFinite(posX) && Number.isFinite(posY)) {
+            return {
+                x: Math.max(0, Math.min(dims.cols - 1, Math.round(posX))),
+                y: Math.max(0, Math.min(dims.rows - 1, Math.round(posY))),
+            };
+        }
+    }
+
+    return {
+        x: fallbackIndex % dims.cols,
+        y: Math.floor(fallbackIndex / dims.cols) % dims.rows,
+    };
+}
+
+function renderMiniverseWorld(world) {
+    const dims = miniverseWorldDimensions(world);
+    const floor = Array.isArray(world?.floor) ? world.floor : [];
+    const props = Array.isArray(world?.props) ? world.props : [];
+    const citizens = Array.isArray(world?.citizens) ? world.citizens : [];
+    const anchors = miniverseWorldAnchors(world);
+    const tiles = [];
+
+    for (let row = 0; row < dims.rows; row += 1) {
+        for (let col = 0; col < dims.cols; col += 1) {
+            const tile = miniverseWorldTile(floor, row, col);
+            tiles.push(`<div class="miniverse-world-tile ${escapeHtml(tile)}" style="grid-column:${col + 1};grid-row:${row + 1};"></div>`);
+        }
+    }
+
+    const propMarkup = props.map((prop, index) => {
+        const x = Number(prop?.x ?? 0);
+        const y = Number(prop?.y ?? 0);
+        const w = Math.max(1, Math.round(Number(prop?.w ?? 1) || 1));
+        const h = Math.max(1, Math.round(Number(prop?.h ?? 1) || 1));
+        const label = String(prop?.id || prop?.sprite || `prop-${index}`);
+        const layer = String(prop?.layer || 'below');
+        return `<div class="miniverse-world-object" style="grid-column:${Math.max(1, Math.round(x) + 1)} / span ${w};grid-row:${Math.max(1, Math.round(y) + 1)} / span ${h};z-index:${layer === 'above' ? 4 : 2}">
+            <div class="miniverse-world-object-label">${escapeHtml(label)}</div>
+        </div>`;
+    }).join('');
+
+    const citizenMarkup = citizens.map((citizen, index) => {
+        const pos = miniverseWorldPosition(citizen, anchors, index, dims);
+        const name = citizen?.name || citizen?.agentId || citizen?.agent || 'citizen';
+        const state = citizen?.state || citizen?.status || 'idle';
+        const sprite = citizen?.sprite || 'sprite';
+        return `<div class="miniverse-world-citizen" style="grid-column:${pos.x + 1};grid-row:${pos.y + 1};">
+            <div class="miniverse-world-citizen-badge">
+                <span class="miniverse-world-citizen-dot"></span>
+                <span>${escapeHtml(name)}</span>
+            </div>
+        </div>`;
+    }).join('');
+
+    const info = world?.info || {};
+    const gridInfo = info?.grid || {};
+    const theme = info?.theme || 'world';
+    const online = info?.agents?.online ?? citizens.length;
+    const total = info?.agents?.total ?? citizens.length;
+    const lastEvent = Array.isArray(world?.events) && world.events.length ? world.events[world.events.length - 1] : null;
+    const legendItems = [
+        { title: `${online}/${total} ciudadanos`, body: 'Agentes visibles en el mundo local.' },
+        { title: `${dims.cols} x ${dims.rows}`, body: `Grilla definida por ${theme}.` },
+        { title: lastEvent ? String(lastEvent.message || lastEvent.text || 'Evento activo') : 'Sin eventos', body: lastEvent ? String(lastEvent.type || lastEvent.event || 'activity') : 'Esperando actividad.' },
+    ];
+
+    return `<div class="miniverse-world-shell">
+        <div class="miniverse-world-header">
+            <div>
+                <div class="miniverse-world-title">${escapeHtml(info?.world || 'Miniverse local mock')}</div>
+                <div class="miniverse-world-meta">
+                    <span class="badge" style="background:#EAF3DE;color:#3B6D11">mundo local</span>
+                    <span class="badge" style="background:#EEEDFE;color:#3C3489">${escapeHtml(theme)}</span>
+                    <span class="badge" style="background:#F1EFE8;color:#5F5E5A">${escapeHtml(`${gridInfo?.cols || dims.cols}×${gridInfo?.rows || dims.rows}`)}</span>
+                </div>
+            </div>
+            <span class="miniverse-mock-pill">mock local</span>
+        </div>
+        <div class="miniverse-world-stage">
+            <div class="miniverse-world-board" style="--cols:${dims.cols};--rows:${dims.rows}">
+                ${tiles.join('')}
+                ${propMarkup}
+                ${citizenMarkup}
+            </div>
+        </div>
+        <div class="miniverse-world-legend">
+            ${legendItems.map(item => `<div class="miniverse-world-legend-item"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.body)}</span></div>`).join('')}
+        </div>
+    </div>`;
 }
 
 function renderMiniverse(snapshot) {
-    const current = snapshot || {};
-    if (miniverseLoading && !current.repo && !current.world) {
-        return '<div class="empty">Cargando Miniverse...</div>';
-    }
-    if (miniverseError && !current.repo && !current.world) {
-        return `<div class="empty">${escapeHtml(miniverseError)}</div>`;
-    }
-
-    const repo = current.repo || {};
+    const current = snapshot && (snapshot.repo || snapshot.world || snapshot.ui || snapshot.meta)
+        ? snapshot
+        : buildLocalMiniverseSnapshot(miniverseError || (miniverseLoading ? 'cargando' : 'sin snapshot'));
     const world = current.world || {};
     const ui = current.ui || {};
-    const info = world.info || {};
-    const agents = normalizeMiniverseAgents(world.agents);
-    const visibleAgentCount = agents.filter(agent => {
-        const state = String(agent?.state || agent?.status || '').toLowerCase();
-        return state !== 'offline' && state !== 'sleeping';
-    }).length;
-    const onlineCount = Number(info?.agents?.online ?? visibleAgentCount ?? 0);
-    const totalCount = Number(info?.agents?.total ?? agents.length ?? 0);
-    const gridCols = info?.grid?.cols;
-    const gridRows = info?.grid?.rows;
-    const gridLabel = gridCols && gridRows ? `${gridCols}x${gridRows}` : 'desconocido';
-    const worldLabel = info?.world || repo.full_name || 'Miniverse';
-    const versionLabel = info?.version ? `v${info.version}` : null;
-    const apiUrl = world.api_url || world.base_url || current.links?.api || '';
+    const meta = current.meta || {};
+    const info = world.info || world.observe?.info || {};
+    const agents = Array.isArray(world.agents) ? world.agents : [];
+    const events = Array.isArray(world.events) ? world.events : [];
     const previewUrl = ui.final_url || ui.url || current.links?.ui || current.links?.world || world.ui_url || '';
-    const previewCaption = ui.embeddable
-        ? 'La UI pública se renderiza aquí dentro de la pestaña.'
-        : 'La UI pública existe, pero el navegador la abre fuera del iframe.';
-    const previewBadges = [
-        ui.embeddable
-            ? `<span class="miniverse-iframe-hint">Embed permitido</span>`
-            : `<span class="miniverse-iframe-hint">Embed no disponible</span>`,
-        ui.status_code != null ? `<span class="miniverse-iframe-hint">HTTP ${escapeHtml(String(ui.status_code))}</span>` : '',
-        ui.blocked_by?.length ? `<span class="miniverse-iframe-hint">${escapeHtml(ui.blocked_by.join(' · '))}</span>` : '',
-    ].filter(Boolean).join('');
-    const previewPanel = ui.embeddable && previewUrl
-        ? `<div class="miniverse-iframe-shell">
-            <div class="miniverse-iframe-overlay">
-                <span class="miniverse-iframe-hint">UI en vivo</span>
-                <a class="miniverse-action" href="${escapeHtml(previewUrl)}" target="_blank" rel="noreferrer">Abrir UI</a>
+    const isMock = meta?.fallback === 'local-mock' || String(previewUrl).startsWith('local-mock://');
+    const livePreview = Boolean(previewUrl) && !isMock && !meta.error && !ui.error;
+    const mockPanel = isMock ? `<div class="miniverse-mock-shell">
+        <div class="miniverse-mock-header">
+            <div>
+                <div class="miniverse-mock-kicker">Miniverse local mock</div>
+                <div class="miniverse-mock-title">${escapeHtml(info?.world || 'Miniverse local mock')}</div>
+                <div class="miniverse-mock-subtitle">Mundo simulado para mantener vivo el tab cuando la fuente pública no responde.</div>
             </div>
+            <span class="miniverse-mock-pill">mock local</span>
+        </div>
+        ${renderMiniverseWorld(world)}
+        <div class="miniverse-mock-grid">
+            <div class="miniverse-mock-block">
+                <h4>Citizens</h4>
+                <p>${escapeHtml(String((world.citizens || []).length || agents.length || 0))} ciudadanos visibles en la world.</p>
+                <div class="miniverse-mock-agent-grid">
+                    ${(Array.isArray(world.citizens) ? world.citizens : agents).slice(0, 4).map((citizen, idx) => {
+                        const name = citizen.agentId || citizen.agent || citizen.name || `citizen-${idx + 1}`;
+                        const state = citizen.state || citizen.status || 'idle';
+                        const sprite = citizen.sprite || 'sprite';
+                        const position = typeof citizen.position === 'string' ? citizen.position : (citizen.x !== undefined && citizen.y !== undefined ? `(${citizen.x}, ${citizen.y})` : 'anchored');
+                        return `<article class="miniverse-mock-agent-card">
+                            <div class="miniverse-mock-agent-name">${escapeHtml(name)}</div>
+                            <div class="miniverse-mock-agent-meta">${escapeHtml([state, sprite, position].filter(Boolean).join(' · '))}</div>
+                        </article>`;
+                    }).join('')}
+                </div>
+            </div>
+            <div class="miniverse-mock-block">
+                <h4>Eventos recientes</h4>
+                <p>${escapeHtml(String(events.length || 0))} eventos observados en el mock.</p>
+                <div class="miniverse-mock-event-list">
+                    ${(events.slice(-4).reverse().map(event => {
+                        const kind = String(event?.type || event?.event || 'evento');
+                        const actor = event?.agent || event?.from || 'miniverse';
+                        const body = event?.message || event?.text || event?.content || event?.description || '';
+                        return `<article class="miniverse-mock-event-card">
+                            <div class="miniverse-mock-event-title">${escapeHtml(kind)} · ${escapeHtml(actor)}</div>
+                            <div class="miniverse-mock-event-body">${escapeHtml(body || 'Sin detalle textual.')}</div>
+                        </article>`;
+                    }).join('') || '<div class="empty">Sin eventos disponibles.</div>')}
+                </div>
+            </div>
+        </div>
+    </div>` : '';
+    const previewPanel = livePreview
+        ? `<div class="miniverse-iframe-shell">
             <iframe src="${escapeHtml(previewUrl)}" title="Miniverse world preview" loading="lazy" referrerpolicy="no-referrer"></iframe>
         </div>`
-        : `<div class="miniverse-iframe-fallback">
-            <div>
-                <h4>Vista del mundo</h4>
-                <p>${escapeHtml(ui.embeddable ? 'La UI está lista, pero falta una URL válida para el preview.' : 'La UI pública existe, pero este navegador la está tratando como vista externa.')}</p>
-            </div>
-            <div class="miniverse-fallback-bullets">
-                <div class="miniverse-fallback-bullet"><span class="miniverse-fallback-step">1</span><span>Abre la UI pública en una pestaña nueva.</span></div>
-                <div class="miniverse-fallback-bullet"><span class="miniverse-fallback-step">2</span><span>Usa la URL pública del mundo para seguir su estado en vivo.</span></div>
-            </div>
-            <div class="miniverse-actions" style="margin-top:4px">
-                ${previewUrl ? `<a class="miniverse-action primary" href="${escapeHtml(previewUrl)}" target="_blank" rel="noreferrer">Abrir UI</a>` : ''}
-                ${current.links?.api ? `<a class="miniverse-action" href="${escapeHtml(current.links.api)}" target="_blank" rel="noreferrer">Abrir API</a>` : ''}
+        : `<div class="miniverse-offline-shell">
+            <h4>Vista local</h4>
+            <p>Miniverse no respondió a tiempo. El panel muestra una vista mínima de respaldo.</p>
+            <div class="miniverse-local-actions">
+                ${previewUrl ? `<a class="btn-outline" href="${escapeHtml(previewUrl)}" target="_blank" rel="noreferrer">Abrir biblioteca</a>` : ''}
+                ${current.links?.api ? `<a class="btn-outline" href="${escapeHtml(current.links.api)}" target="_blank" rel="noreferrer">Abrir API</a>` : ''}
+                ${current.links?.repo ? `<a class="btn-outline" href="${escapeHtml(current.links.repo)}" target="_blank" rel="noreferrer">Abrir repo</a>` : ''}
             </div>
         </div>`;
-    const statItems = [
-        worldLabel,
-        versionLabel,
-        `Agentes ${onlineCount}/${totalCount || visibleAgentCount || 0}`,
-        `Grid ${gridLabel}`,
-        repo.language ? `Lang ${repo.language}` : null,
-        repo.license ? `License ${repo.license}` : null,
-        ui.embeddable != null ? (ui.embeddable ? 'UI embebible' : 'UI externa') : null,
-    ].filter(Boolean);
-
-    const agentCards = agents.length ? agents.map(agent => {
-        const name = agent.agent || agent.name || agent.id || 'agent';
-        const state = String(agent.state || agent.status || 'idle').toLowerCase();
-        const metaBits = [
-            agent.task || agent.current_task || agent.activity || null,
-            agent.role || null,
-        ].filter(Boolean);
-        const positionBits = [];
-        if (agent.x !== undefined && agent.y !== undefined) positionBits.push(`(${agent.x}, ${agent.y})`);
-        if (agent.world) positionBits.push(agent.world);
-        if (agent.last_seen) positionBits.push(fmtTime(agent.last_seen));
-        return `<article class="miniverse-agent-card">
-            <div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
-                <div>
-                    <div class="miniverse-agent-name">${escapeHtml(name)}</div>
-                    <div class="miniverse-agent-meta">${escapeHtml(metaBits.join(' | ') || 'Sin detalle adicional')}</div>
-                </div>
-                ${badge(state)}
-            </div>
-            ${positionBits.length ? `<div class="miniverse-agent-task">${escapeHtml(positionBits.join(' | '))}</div>` : ''}
-        </article>`;
-    }).join('') : '<div class="empty">No hay agentes visibles en este momento.</div>';
-
-    const infoJson = info && Object.keys(info).length
-        ? `<details class="miniverse-details">
-            <summary>Ver snapshot JSON</summary>
-            <div style="margin-top:10px">
-                <pre class="miniverse-json">${escapeHtml(JSON.stringify(info, null, 2))}</pre>
-            </div>
-        </details>`
-        : '<div class="empty">Sin snapshot del mundo disponible.</div>';
-    const errorBanner = current.meta?.error
-        ? `<div class="blocker" style="margin-bottom:0">Sincronizacion Miniverse: ${escapeHtml(current.meta.error)}</div>`
-        : '';
-    const staleBanner = current.meta?.stale
-        ? `<div class="blocker" style="background:#fff2d8;color:#9a5b00">Mostrando cache temporal mientras vuelve el servicio.</div>`
-        : '';
-    const repoSummary = [
-        repo.description || 'Un mundo pixelado para agentes de IA.',
-        repo.homepage ? `Homepage: ${repo.homepage}` : null,
-        repo.updated_at ? `Updated: ${fmtDate(repo.updated_at)}` : null,
-    ].filter(Boolean).join(' ');
 
     return `<section class="miniverse-shell">
-        <div class="miniverse-hero">
-            <div class="miniverse-kicker">Miniverse</div>
-            <div class="miniverse-title">${escapeHtml(repo.full_name || 'ianscott313/miniverse')}</div>
-            <div class="miniverse-subtitle">${escapeHtml(repoSummary)}</div>
-            <div class="miniverse-actions">
-                <a class="miniverse-action primary" href="${escapeHtml(current.links?.world || world.base_url || '#')}" target="_blank" rel="noreferrer">Abrir mundo</a>
-                <a class="miniverse-action" href="${escapeHtml(current.links?.repo || repo.html_url || '#')}" target="_blank" rel="noreferrer">Abrir repo</a>
-                ${current.links?.docs ? `<a class="miniverse-action" href="${escapeHtml(current.links.docs)}" target="_blank" rel="noreferrer">Docs</a>` : ''}
-            </div>
-            <div class="miniverse-stats">
-                ${statItems.map(item => `<span class="miniverse-stat">${escapeHtml(item)}</span>`).join('')}
-            </div>
-        </div>
-        ${errorBanner}
-        ${staleBanner}
-        <div class="miniverse-preview-grid">
-            <div class="miniverse-card">
-                <div class="miniverse-card-head">
-                    <div>
-                        <h4>Vista del mundo</h4>
-                        <p>${escapeHtml(previewCaption)}</p>
-                    </div>
-                    ${ui.embeddable
-                        ? `<span class="badge" style="background:${STATUS_COLOR.delivered.bg};color:${STATUS_COLOR.delivered.text}">iframe</span>`
-                        : `<span class="badge" style="background:${STATUS_COLOR.blocked.bg};color:${STATUS_COLOR.blocked.text}">externo</span>`}
-                </div>
-                ${previewPanel}
-                ${previewBadges ? `<div class="miniverse-stats compact" style="margin-top:12px">${previewBadges}</div>` : ''}
-            </div>
-            <div class="miniverse-card">
-                <div class="miniverse-card-head">
-                    <div>
-                        <h4>Estado del mundo</h4>
-                        <p class="miniverse-url">${escapeHtml(apiUrl || current.links?.api || '')}</p>
-                    </div>
-                    ${onlineCount > 0 ? badge('working') : badge('idle')}
-                </div>
-                <div class="miniverse-stats compact">
-                    ${repo.stargazers_count != null ? `<span class="miniverse-stat">${escapeHtml(String(repo.stargazers_count))} stars</span>` : ''}
-                    ${repo.forks_count != null ? `<span class="miniverse-stat">${escapeHtml(String(repo.forks_count))} forks</span>` : ''}
-                    ${repo.open_issues_count != null ? `<span class="miniverse-stat">${escapeHtml(String(repo.open_issues_count))} issues</span>` : ''}
-                </div>
-                <div class="miniverse-stats compact">
-                    ${world.ui_url ? `<span class="miniverse-stat soft">UI ${escapeHtml(world.ui_url)}</span>` : ''}
-                    ${apiUrl ? `<span class="miniverse-stat soft">API ${escapeHtml(apiUrl)}</span>` : ''}
-                </div>
-                ${infoJson}
-            </div>
-        </div>
-        <div class="miniverse-card">
-            <div class="miniverse-card-head">
-                <div>
-                    <h4>Agentes visibles</h4>
-                    <p>${escapeHtml(agents.length ? 'Estado vivo del mundo en tiempo real.' : 'Esperando datos del mundo.')}</p>
-                </div>
-                <span class="badge" style="background:${STATUS_COLOR.planned.bg};color:${STATUS_COLOR.planned.text}">${escapeHtml(onlineCount + '/' + (totalCount || visibleAgentCount || 0))}</span>
-            </div>
-            <div class="miniverse-agent-grid">
-                ${agentCards}
-            </div>
-        </div>
+        ${mockPanel || previewPanel}
     </section>`;
 }
 
@@ -1480,11 +1719,13 @@ async function fetchMiniverseSnapshot(force = false) {
             const data = await r.json();
             if (!r.ok) throw new Error(data.error || data.meta?.error || 'No se pudo cargar Miniverse');
             miniverseSnapshot = data;
+            miniverseError = null;
             return data;
         })
         .catch((e) => {
             miniverseError = e.message || 'No se pudo cargar Miniverse';
-            return null;
+            miniverseSnapshot = buildLocalMiniverseSnapshot(miniverseError);
+            return miniverseSnapshot;
         })
         .finally(() => {
             miniverseLoading = false;
