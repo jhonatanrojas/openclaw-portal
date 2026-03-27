@@ -358,10 +358,8 @@
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    background:
-        radial-gradient(circle at top right, rgba(125, 211, 252, 0.10), transparent 36%),
-        linear-gradient(180deg, #050816 0%, #0f172a 100%);
-    border: 1px solid rgba(125, 211, 252, 0.18);
+    background: transparent;
+    border: 1px solid var(--border);
     min-height: 560px;
 }
 .miniverse-iframe-shell iframe {
@@ -370,7 +368,7 @@
     min-height: 560px;
     height: 100%;
     border: 0;
-    background: #050816;
+    background: transparent;
 }
 .miniverse-offline-shell {
     min-height: 560px;
