@@ -339,7 +339,7 @@ class DevSquadController extends Controller
         try {
             $response = Http::withHeaders($this->headers())
                 ->timeout(30)
-                ->post("{$this->apiBase}/api/{$path}", $request->all());
+                ->post("{$this->apiBase}/api/{$path}", $request->json()->all() ?: $request->all());
 
             return response()->json($response->json(), $response->status());
         } catch (\Exception $e) {
@@ -353,7 +353,7 @@ class DevSquadController extends Controller
         try {
             $response = Http::withHeaders($this->headers())
                 ->timeout(10)
-                ->put("{$this->apiBase}/api/{$path}", $request->all());
+                ->put("{$this->apiBase}/api/{$path}", $request->json()->all() ?: $request->all());
 
             return response()->json($response->json(), $response->status());
         } catch (\Exception $e) {

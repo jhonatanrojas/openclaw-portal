@@ -138,7 +138,60 @@
 .model-row-meta { font-size: 11px; color: var(--text-tertiary); }
 .model-select { width: 100%; border: 0.5px solid var(--border); border-radius: 6px; background: var(--bg-primary); color: var(--text-primary); padding: 8px 10px; font: inherit; font-size: 12px; }
 .models-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.btn-test-model { border: 0.5px solid var(--border); background: var(--bg-secondary); color: var(--text-secondary); border-radius: 6px; padding: 6px 10px; font-size: 11px; cursor: pointer; font-weight: 500; }
+.btn-test-model:hover { background: var(--bg-primary); color: var(--text-primary); }
+.btn-test-model:disabled { opacity: 0.5; cursor: not-allowed; }
+.model-test-result { font-size: 11px; padding: 6px 8px; border-radius: 6px; margin-top: 6px; }
+.model-test-result.ok { background: #EAF3DE; color: #3B6D11; }
+.model-test-result.error { background: #FCEBEB; color: #791F1F; }
+.model-test-result.warning { background: #FFF2D8; color: #9A5B00; }
 .models-status { font-size: 12px; color: var(--text-tertiary); }
+.copilot-shell { display: grid; gap: 12px; }
+.copilot-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 12px; align-items: start; }
+.copilot-card { border: 0.5px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-primary); padding: 14px; display: grid; gap: 12px; }
+.copilot-card-head { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: flex-start; }
+.copilot-card-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.copilot-card-subtitle { font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
+.copilot-preview-shell { border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; background: rgba(15, 23, 42, .03); min-height: 420px; }
+.copilot-preview-shell iframe { display: block; width: 100%; min-height: 420px; border: 0; background: #fff; }
+.copilot-preview-empty { min-height: 420px; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 20px; color: var(--text-secondary); }
+.copilot-preview-empty h4 { font-size: 16px; color: var(--text-primary); }
+.copilot-preview-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.copilot-task-toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.copilot-task-select { width: 100%; border: 0.5px solid var(--border); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); padding: 8px 10px; font: inherit; font-size: 12px; }
+.copilot-task-list { display: grid; gap: 8px; }
+.copilot-task-item { border: 0.5px solid var(--border); border-radius: 10px; background: var(--bg-secondary); padding: 10px 12px; display: grid; gap: 8px; }
+.copilot-task-item-head { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: flex-start; }
+.copilot-task-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.copilot-task-meta { font-size: 11px; color: var(--text-tertiary); display: flex; flex-wrap: wrap; gap: 6px; }
+.copilot-task-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.copilot-context-shell { display: grid; gap: 10px; }
+.copilot-context-list { display: grid; gap: 10px; }
+.copilot-context-item { border: 0.5px solid var(--border); border-radius: 10px; background: var(--bg-secondary); padding: 10px 12px; display: grid; gap: 8px; }
+.copilot-context-item-head { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; }
+.copilot-context-title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.copilot-context-body { font-size: 12px; color: var(--text-secondary); line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+.copilot-context-empty { border: 0.5px dashed var(--border); border-radius: 10px; background: rgba(245,244,240,.5); padding: 12px; color: var(--text-tertiary); font-size: 12px; }
+.copilot-editor { border: 0.5px solid var(--border); border-radius: 10px; background: var(--bg-primary); padding: 12px; display: grid; gap: 10px; }
+.copilot-editor label { display: grid; gap: 6px; font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+.copilot-editor textarea, .copilot-editor input {
+    width: 100%;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 13px;
+}
+.copilot-editor textarea { min-height: 240px; resize: vertical; font-family: var(--font-mono); line-height: 1.7; }
+.copilot-editor-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.copilot-inline-note { font-size: 11px; color: var(--text-tertiary); line-height: 1.5; }
+.copilot-message { font-size: 12px; padding: 8px 10px; border-radius: 8px; }
+.copilot-message.ok { background: #EAF3DE; color: #3B6D11; }
+.copilot-message.error { background: #FCEBEB; color: #791F1F; }
+.copilot-message.warning { background: #FFF2D8; color: #9A5B00; }
+.copilot-message.muted { background: var(--bg-secondary); color: var(--text-secondary); }
 .miniverse-shell { display: grid; gap: 12px; }
 .miniverse-mock-shell {
     border: 0.5px solid var(--border);
@@ -446,10 +499,14 @@
 
         @media (max-width: 1080px) {
             .miniverse-mock-grid { grid-template-columns: 1fr; }
+            .copilot-grid { grid-template-columns: 1fr; }
             .miniverse-iframe-shell,
             .miniverse-iframe-shell iframe,
             .miniverse-offline-shell,
-            .miniverse-shell { min-height: 460px; }
+            .miniverse-shell,
+            .copilot-preview-shell,
+            .copilot-preview-shell iframe,
+            .copilot-preview-empty { min-height: 460px; }
         }
         @media (max-width: 760px) { .gateway-chat-grid { grid-template-columns: 1fr; } }
         @media (max-width: 720px) {
@@ -457,7 +514,10 @@
             .miniverse-iframe-shell,
             .miniverse-iframe-shell iframe,
             .miniverse-offline-shell,
-            .miniverse-shell { min-height: 380px; }
+            .miniverse-shell,
+            .copilot-preview-shell,
+            .copilot-preview-shell iframe,
+            .copilot-preview-empty { min-height: 380px; }
         }
         @media (max-width: 600px) { .agents-grid { grid-template-columns: 1fr; } }
     </style>
@@ -540,6 +600,7 @@
         <button class="tab-btn" onclick="setTab('log',this)">Registro de eventos</button>
         <button class="tab-btn" onclick="setTab('gateway',this)">Eventos del Gateway</button>
         <button class="tab-btn" onclick="setTab('files',this)">Archivos</button>
+        <button class="tab-btn" onclick="setTab('copilot',this)">Co-piloto</button>
         <button class="tab-btn" onclick="setTab('miniverse',this)">Miniverse</button>
     </div>
 
@@ -568,6 +629,7 @@
 </div>
 <script>
 const API = '/devsquad/api';
+const CONTEXT_DOC_PATH = '/var/www/openclaw-multi-agents/shared/CONTEXT.md';
 
 const AGENT_META = {
     arch:  { name:'ARCH',  rol:'Coordinador', model:'nvidia/z-ai/glm5',            emoji:'🗂️', color:'#7F77DD' },
@@ -786,6 +848,22 @@ let selectedFilePath = null;
 let selectedFilePreview = null;
 let selectedFileLoading = false;
 let selectedFileError = null;
+let copilotTaskId = null;
+let contextSnapshot = null;
+let contextLoading = false;
+let contextError = null;
+let contextRequestedAt = 0;
+let contextRequestPromise = null;
+let contextSections = [];
+let contextEditor = {
+    section: '',
+    content: '',
+    reason: '',
+};
+let contextMessage = {
+    text: '',
+    tone: 'muted',
+};
 
 const t = s => STATUS_ES[s] || s;
 
@@ -971,10 +1049,14 @@ function renderModelSelect(agentId) {
             </div>
             <span class="badge" style="background:${STATUS_COLOR.idle.bg};color:${STATUS_COLOR.idle.text}">Modelo</span>
         </div>
-        <select id="agent-model-${agentId}" class="model-select" onchange="onAgentModelChange('${agentId}')">
-            ${options}
-        </select>
-    </label>`;
+ <div style="display:flex;gap:6px;align-items:stretch">
+ <select id="agent-model-${agentId}" class="model-select" style="flex:1" onchange="onAgentModelChange('${agentId}')">
+ ${options}
+ </select>
+ <button type="button" class="btn-test-model" onclick="testModelAvailability('${agentId}')" title="Probar disponibilidad del modelo">Test</button>
+ </div>
+ <div id="model-test-result-${agentId}" class="model-test-result" style="display:none"></div>
+ </label>`;
 }
 
 function renderModelPanel() {
@@ -986,6 +1068,72 @@ function renderModelPanel() {
     }
     const agents = ['arch', 'byte', 'pixel'];
     container.innerHTML = agents.map(renderModelSelect).join('');
+}
+
+
+async function testModelAvailability(agentId) {
+    const select = document.getElementById(`agent-model-${agentId}`);
+    const model = select?.value;
+    const resultDiv = document.getElementById(`model-test-result-${agentId}`);
+    const btn = select?.parentElement?.querySelector('.btn-test-model');
+    if (!model) {
+        alert('Selecciona un modelo primero');
+        return;
+    }
+
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Probando...';
+    }
+    if (resultDiv) {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'model-test-result warning';
+        resultDiv.textContent = 'Probando modelo...';
+    }
+
+    try {
+        const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+        const r = await fetch(`${API}/models/test`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ model }),
+        });
+
+        const data = await r.json();
+
+        if (resultDiv) {
+            if (data.ok) {
+                resultDiv.className = 'model-test-result ok';
+                resultDiv.textContent = `✓ ${data.message} (${data.elapsed_ms}ms)`;
+            } else if (data.status === 'insufficient_balance') {
+                resultDiv.className = 'model-test-result error';
+                resultDiv.textContent = `✗ Saldo insuficiente`;
+            } else if (data.status === 'not_found') {
+                resultDiv.className = 'model-test-result error';
+                resultDiv.textContent = `✗ Modelo no encontrado`;
+            } else if (data.status === 'timeout') {
+                resultDiv.className = 'model-test-result warning';
+                resultDiv.textContent = `⚠ Tiempo agotado`;
+            } else {
+                resultDiv.className = 'model-test-result error';
+                resultDiv.textContent = `✗ ${data.message || 'Error desconocido'}`;
+            }
+        }
+    } catch (e) {
+        if (resultDiv) {
+            resultDiv.className = 'model-test-result error';
+            resultDiv.textContent = `✗ Error: ${e.message || 'No se pudo probar el modelo'}`;
+        }
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Test';
+        }
+    }
 }
 
 async function onAgentModelChange(agentId) {
@@ -1192,6 +1340,7 @@ function renderTasks(tasks) {
     return tasks.map(task => {
         const ag = AGENT_META[task.agent] || {};
         const tc = TASK_COLOR[task.status] || TASK_COLOR.pending;
+        const preview = taskPreviewInfo(task);
         const canRetry = ['error', 'pending', 'paused', 'in_progress'].includes(String(task.status || '').toLowerCase()) || task.retryable || Number(task.failure_count || 0) > 0;
         const canPause = String(task.status || '').toLowerCase() === 'in_progress';
         const failureCount = Number(task.failure_count || 0);
@@ -1201,9 +1350,12 @@ function renderTasks(tasks) {
                 <span class="task-title">${task.title||''}</span>
                 <span style="font-size:11px;font-weight:500;min-width:56px;color:${ag.color||'#888'}">${ag.emoji||''} ${ag.name||task.agent}</span>
                 <span class="badge" style="background:${tc.bg};color:${tc.text};min-width:80px;text-align:center">${t(task.status)}</span>
+                ${preview.url ? `<span class="badge" style="background:${preview.status === 'running' ? '#EAF3DE' : '#F1EFE8'};color:${preview.status === 'running' ? '#3B6D11' : '#5F5E5A'}">Preview ${t(preview.status)}</span>` : ''}
+                ${preview.url ? `<a class="btn-outline" href="${escapeHtml(preview.url)}" target="_blank" rel="noreferrer">Abrir preview</a>` : ''}
                 ${canPause ? `<button class="btn-outline" type="button" onclick="pauseTask('${task.id}')">Pausar</button>` : ''}
                 ${canRetry ? `<button class="btn-outline" type="button" onclick="resumeTask('${task.id}')">Reanudar</button>` : ''}
             </div>
+            ${task.agent ? `<div class="task-skills">Co-piloto: ${escapeHtml(gatewayAgentLabel(String(task.agent).toLowerCase()))}${preview.url ? ` · ${escapeHtml(preview.url)}` : ''}</div>` : ''}
             ${failureCount ? `<div class="task-skills">Intentos fallidos: ${failureCount}${task.suggested_agent ? ` · sugerido: ${escapeHtml((AGENT_META[task.suggested_agent] || {}).name || task.suggested_agent)}` : ''}</div>` : ''}
             ${task.skills?.length ? `<div class="task-skills">Habilidades: ${task.skills.join(' · ')}</div>` : ''}
         </div>`;
@@ -1274,6 +1426,230 @@ function gatewayEventTone(kind) {
     if (kind === 'tool') return { bg:'#E1F5EE', text:'#0F6E56' };
     if (kind === 'message') return { bg:'#EAF3DE', text:'#3B6D11' };
     return { bg:'#F1EFE8', text:'#5F5E5A' };
+}
+
+function normalizePreviewStatus(status) {
+    const value = String(status || '').toLowerCase();
+    if (['running', 'stopped', 'not_applicable'].includes(value)) return value;
+    return value || 'not_applicable';
+}
+
+function taskPreviewInfo(task) {
+    const url = String(task?.preview_url || '').trim() || String(memory?.project?.preview_url || '').trim() || String(memory?.preview_url || '').trim();
+    return {
+        url: url || '',
+        status: normalizePreviewStatus(task?.preview_status || memory?.project?.preview_status || memory?.preview_status),
+    };
+}
+
+function copilotTaskCandidates() {
+    const tasks = Array.isArray(memory?.tasks) ? memory.tasks : [];
+    return tasks.filter(task => {
+        const status = String(task?.status || '').toLowerCase();
+        return Boolean(task?.preview_url) || ['in_progress', 'paused', 'error'].includes(status);
+    });
+}
+
+function selectedCopilotTask() {
+    const tasks = Array.isArray(memory?.tasks) ? memory.tasks : [];
+    if (copilotTaskId) {
+        const selected = tasks.find(task => task && task.id === copilotTaskId);
+        if (selected) return selected;
+    }
+    const candidates = copilotTaskCandidates();
+    const fallback = candidates[0] || tasks.find(task => task?.status === 'in_progress') || tasks[0] || null;
+    copilotTaskId = fallback?.id || null;
+    return fallback;
+}
+
+function setContextMessage(text, tone = 'muted') {
+    contextMessage = { text: text || '', tone };
+    if (activeTab === 'copilot') {
+        renderTab();
+    }
+}
+
+function contextFileUrl() {
+    return `${API.replace(/\/api$/, '')}/files/view?path=${encodeURIComponent(CONTEXT_DOC_PATH)}`;
+}
+
+function parseContextSections(content) {
+    const raw = String(content || '');
+    const lines = raw.split(/\r?\n/);
+    const sections = [];
+    let title = '';
+    let buffer = [];
+    let heading = null;
+
+    const pushSection = () => {
+        if (!heading) return;
+        sections.push({
+            title: heading,
+            body: buffer.join('\n').replace(/\s+$/, ''),
+        });
+    };
+
+    for (const line of lines) {
+        const h1 = line.match(/^#\s+(.+)$/);
+        const h2 = line.match(/^##\s+(.+)$/);
+        if (h1 && !title) {
+            title = h1[1].trim();
+            continue;
+        }
+        if (h2) {
+            pushSection();
+            heading = h2[1].trim();
+            buffer = [];
+            continue;
+        }
+        if (heading) {
+            buffer.push(line);
+        }
+    }
+    pushSection();
+    return { title, sections };
+}
+
+function syncContextSnapshot(file) {
+    const content = String(file?.content || '');
+    const parsed = parseContextSections(content);
+    contextSnapshot = {
+        path: file?.path || CONTEXT_DOC_PATH,
+        modified_at: file?.modified_at || null,
+        mime: file?.mime || 'text/markdown',
+        size: file?.size || content.length,
+        content,
+        title: parsed.title,
+    };
+    contextSections = parsed.sections;
+    if (!copilotTaskId) {
+        selectedCopilotTask();
+    }
+}
+
+function beginContextEdit(sectionTitle) {
+    const section = contextSections.find(item => item.title === sectionTitle);
+    if (!section) return;
+    contextEditor = {
+        section: section.title,
+        content: section.body,
+        reason: '',
+    };
+    contextMessage = { text: '', tone: 'muted' };
+    if (activeTab === 'copilot') {
+        renderTab();
+    }
+}
+
+function cancelContextEdit() {
+    contextEditor = { section: '', content: '', reason: '' };
+    contextMessage = { text: '', tone: 'muted' };
+    if (activeTab === 'copilot') {
+        renderTab();
+    }
+}
+
+async function saveContextSection() {
+    const section = contextEditor.section;
+    const contentEl = document.getElementById('context-edit-content');
+    const reasonEl = document.getElementById('context-edit-reason');
+    const content = contentEl?.value ?? '';
+    const reason = String(reasonEl?.value || '').trim();
+
+    if (!section) {
+        alert('Selecciona una sección del contexto primero.');
+        return;
+    }
+    if (!reason) {
+        alert('El motivo del cambio es obligatorio.');
+        return;
+    }
+
+    const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const saveBtn = document.getElementById('context-save-btn');
+    const cancelBtn = document.getElementById('context-cancel-btn');
+    if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Guardando...';
+    }
+    if (cancelBtn) {
+        cancelBtn.disabled = true;
+    }
+    setContextMessage(`Guardando ${section}...`, 'warning');
+
+    try {
+        const r = await fetch(`${API}/context`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ section, content, reason }),
+        });
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(data.error || data.message || 'No se pudo actualizar el contexto');
+        contextEditor = { section: '', content: '', reason: '' };
+        await fetchContextSnapshot(true);
+        setContextMessage(`Contexto actualizado a la versión ${data.plan_version ?? 'nueva'}`, 'ok');
+    } catch (e) {
+        setContextMessage(e.message || 'No se pudo actualizar el contexto', 'error');
+    } finally {
+        if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.textContent = 'Guardar cambios';
+        }
+        if (cancelBtn) {
+            cancelBtn.disabled = false;
+        }
+    }
+}
+
+async function sendSteerForTask(taskId) {
+    const task = (Array.isArray(memory?.tasks) ? memory.tasks : []).find(item => item && item.id === taskId);
+    if (!task) {
+        alert('No se encontró la tarea seleccionada.');
+        return;
+    }
+    const agentId = String(task.agent || '').toLowerCase();
+    if (!agentId) {
+        alert('La tarea no tiene un agente asignado.');
+        return;
+    }
+    const input = document.getElementById('copilot-steer-input');
+    const message = String(input?.value || '').trim();
+    if (!message) {
+        alert('Escribe primero el mensaje para el agente.');
+        return;
+    }
+    const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const sendBtn = document.getElementById('copilot-steer-send');
+    if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Enviando...';
+    }
+    try {
+        const r = await fetch(`${API}/agents/${encodeURIComponent(agentId)}/steer`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ message }),
+        });
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(data.error || data.message || 'No se pudo enviar la guía');
+        if (input) input.value = '';
+        setContextMessage(`Guía enviada a ${gatewayAgentLabel(agentId)}`, 'ok');
+    } catch (e) {
+        setContextMessage(e.message || 'No se pudo enviar la guía al agente', 'error');
+    } finally {
+        if (sendBtn) {
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Enviar guía';
+        }
+    }
 }
 
 function gatewayStatusBadge(status) {
@@ -1414,6 +1790,148 @@ function renderGatewayTab() {
             </div>
         </div>
     `;
+}
+
+function renderCopilotTab() {
+    const tasks = Array.isArray(memory?.tasks) ? memory.tasks : [];
+    const activeTask = selectedCopilotTask();
+    const candidates = copilotTaskCandidates();
+    const taskPool = candidates.length ? candidates : tasks;
+    const taskOptions = taskPool.map(task => {
+        const preview = taskPreviewInfo(task);
+        const label = `${task.id}${task.title ? ` · ${task.title}` : ''}${preview.url ? ' · preview' : ''}`;
+        const selected = activeTask?.id === task.id ? ' selected' : '';
+        return `<option value="${escapeHtml(task.id)}"${selected}>${escapeHtml(label)}</option>`;
+    }).join('');
+    const preview = taskPreviewInfo(activeTask);
+    const previewStatus = preview.url ? preview.status : 'not_applicable';
+    const context = contextSnapshot;
+    const contextTitle = context?.title || 'CONTEXT.md';
+    const contextMeta = context
+        ? `${context.modified_at ? fmtDate(context.modified_at) : 'sin fecha'} · ${contextSections.length} sección${contextSections.length === 1 ? '' : 'es'}`
+        : 'sin snapshot todavía';
+    const contextStatus = contextLoading
+        ? { text: 'Cargando CONTEXT.md...', tone: 'warning' }
+        : contextError
+            ? { text: contextError, tone: 'error' }
+            : contextMessage.text
+                ? contextMessage
+                : { text: 'Listo para editar contexto compartido.', tone: 'muted' };
+    const sectionCards = contextSections.length
+        ? contextSections.map(section => {
+            const editing = contextEditor.section === section.title;
+            return `<div class="copilot-context-item">
+                <div class="copilot-context-item-head">
+                    <div>
+                        <div class="copilot-context-title">${escapeHtml(section.title)}</div>
+                        <div class="copilot-inline-note">Sección editable de CONTEXT.md</div>
+                    </div>
+                    ${editing ? '' : `<button class="btn-outline" type="button" onclick="beginContextEdit(${JSON.stringify(section.title)})">Editar</button>`}
+                </div>
+                ${editing ? `
+                    <div class="copilot-editor">
+                        <label>
+                            Contenido
+                            <textarea id="context-edit-content" aria-label="Contenido de ${escapeHtml(section.title)}">${escapeHtml(contextEditor.content)}</textarea>
+                        </label>
+                        <label>
+                            Motivo del cambio
+                            <input id="context-edit-reason" aria-label="Motivo para editar ${escapeHtml(section.title)}" placeholder="Ej. Aclarar el flujo de preview" value="${escapeHtml(contextEditor.reason)}" />
+                        </label>
+                        <div class="copilot-editor-actions">
+                            <button class="btn-start" id="context-save-btn" type="button" onclick="saveContextSection()">Guardar cambios</button>
+                            <button class="btn-outline" id="context-cancel-btn" type="button" onclick="cancelContextEdit()">Cancelar</button>
+                        </div>
+                    </div>
+                ` : `
+                    <div class="copilot-context-body">${escapeHtml(section.body || 'Sin contenido en esta sección.')}</div>
+                `}
+            </div>`;
+        }).join('')
+        : '<div class="copilot-context-empty">No se pudo leer CONTEXT.md. Revisa la ruta del backend o carga el archivo manualmente.</div>';
+
+    const previewPanel = preview.url
+        ? `<div class="copilot-preview-shell">
+            <iframe src="${escapeHtml(preview.url)}" title="Preview de la tarea ${escapeHtml(activeTask?.id || 'seleccionada')}" loading="lazy" referrerpolicy="no-referrer"></iframe>
+        </div>`
+        : `<div class="copilot-preview-empty">
+            <h4>Preview no disponible</h4>
+            <p>No hay una URL de preview registrada para la tarea seleccionada.</p>
+        </div>`;
+
+    return `<section class="copilot-shell">
+        <div class="copilot-grid">
+            <div class="copilot-shell">
+                <div class="copilot-card">
+                    <div class="copilot-card-head">
+                        <div>
+                            <div class="copilot-card-title">Superficie de preview</div>
+                            <div class="copilot-card-subtitle">Abre el preview temporal de la tarea o navega directamente al enlace si el iframe no responde.</div>
+                        </div>
+                        <span class="badge" style="background:${previewStatus === 'running' ? '#EAF3DE' : '#F1EFE8'};color:${previewStatus === 'running' ? '#3B6D11' : '#5F5E5A'}">Preview ${escapeHtml(previewStatus)}</span>
+                    </div>
+                    ${previewPanel}
+                    <div class="copilot-preview-links">
+                        ${preview.url ? `<a class="btn-outline" href="${escapeHtml(preview.url)}" target="_blank" rel="noreferrer">Abrir preview</a>` : ''}
+                        ${activeTask?.id ? `<span class="badge" style="background:#EEEDFE;color:#3C3489">Tarea ${escapeHtml(activeTask.id)}</span>` : ''}
+                        ${activeTask?.agent ? `<span class="badge" style="background:#E1F5EE;color:#0F6E56">${escapeHtml(gatewayAgentLabel(String(activeTask.agent).toLowerCase()))}</span>` : ''}
+                    </div>
+                </div>
+                <div class="copilot-card">
+                    <div class="copilot-card-head">
+                        <div>
+                            <div class="copilot-card-title">Steer de tarea</div>
+                            <div class="copilot-card-subtitle">Envía guía operativa al agente activo de la tarea seleccionada.</div>
+                        </div>
+                    </div>
+                    <label>
+                        Tarea activa
+                        <select id="copilot-task-select" class="copilot-task-select" onchange="copilotTaskId=this.value;renderTab();">
+                            ${(taskPool.length ? taskOptions : '<option value="">Sin tareas disponibles</option>')}
+                        </select>
+                    </label>
+                    <div class="copilot-task-list">
+                        ${activeTask ? `
+                            <div class="copilot-task-item">
+                                <div class="copilot-task-item-head">
+                                    <div>
+                                        <div class="copilot-task-name">${escapeHtml(activeTask.title || activeTask.id || 'Tarea')}</div>
+                                        <div class="copilot-task-meta">
+                                            <span>${escapeHtml(activeTask.id || '')}</span>
+                                            ${activeTask.agent ? `<span>·</span><span>${escapeHtml(gatewayAgentLabel(String(activeTask.agent).toLowerCase()))}</span>` : ''}
+                                            <span>·</span>
+                                            <span>${escapeHtml(t(activeTask.status || 'pending'))}</span>
+                                        </div>
+                                    </div>
+                                    ${preview.url ? `<span class="badge" style="background:#EAF3DE;color:#3B6D11">preview listo</span>` : `<span class="badge" style="background:#F1EFE8;color:#5F5E5A">sin preview</span>`}
+                                </div>
+                                <textarea id="copilot-steer-input" class="copilot-task-select" style="min-height:120px" placeholder="Ej. Usa el componente existente y valida que el selector de modelos siga funcionando."></textarea>
+                                <div class="copilot-task-actions">
+                                    <button class="btn-start" id="copilot-steer-send" type="button" onclick="sendSteerForTask(${JSON.stringify(activeTask.id)})"${activeTask.agent ? '' : ' disabled'}>Enviar guía</button>
+                                    ${preview.url ? `<a class="btn-outline" href="${escapeHtml(preview.url)}" target="_blank" rel="noreferrer">Abrir preview</a>` : ''}
+                                </div>
+                                <div class="copilot-inline-note">La guía se envía al agente asociado a la tarea activa. Si el backend rechaza la solicitud, aparecerá un mensaje abajo.</div>
+                            </div>
+                        ` : '<div class="copilot-context-empty">No hay una tarea seleccionada para guiar.</div>'}
+                    </div>
+                </div>
+            </div>
+            <div class="copilot-shell">
+                <div class="copilot-card">
+                    <div class="copilot-card-head">
+                        <div>
+                            <div class="copilot-card-title">Editor de contexto compartido</div>
+                            <div class="copilot-card-subtitle">${escapeHtml(contextTitle)} · ${escapeHtml(contextMeta)}</div>
+                        </div>
+                    </div>
+                    ${contextStatus.text ? `<div class="copilot-message ${escapeHtml(contextStatus.tone || 'muted')}">${escapeHtml(contextStatus.text)}</div>` : ''}
+                    <div class="copilot-context-list">
+                        ${sectionCards}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>`;
 }
 
 function miniverseWorldDimensions(world) {
@@ -1781,6 +2299,40 @@ async function fetchMiniverseSnapshot(force = false) {
     return miniverseRequestPromise;
 }
 
+async function fetchContextSnapshot(force = false) {
+    const now = Date.now();
+    if (contextRequestPromise) return contextRequestPromise;
+    if (!force && contextSnapshot && now - contextRequestedAt < 60000) {
+        return contextSnapshot;
+    }
+
+    contextLoading = true;
+    contextError = null;
+    contextRequestedAt = now;
+    if (activeTab === 'copilot') renderTab();
+
+    contextRequestPromise = fetch(contextFileUrl())
+        .then(async (r) => {
+            const data = await r.json();
+            if (!r.ok) throw new Error(data.error || 'No se pudo cargar CONTEXT.md');
+            syncContextSnapshot(data.file || {});
+            return contextSnapshot;
+        })
+        .catch((e) => {
+            contextError = e.message || 'No se pudo cargar CONTEXT.md';
+            contextSnapshot = null;
+            contextSections = [];
+            return null;
+        })
+        .finally(() => {
+            contextLoading = false;
+            contextRequestPromise = null;
+            if (activeTab === 'copilot') renderTab();
+        });
+
+    return contextRequestPromise;
+}
+
 async function fetchGatewayEventsSnapshot(force = false) {
     if (!force && gatewaySnapshot?.events?.length) {
         return gatewaySnapshot;
@@ -2091,11 +2643,14 @@ function renderProjects(projects, currentId) {
         const title = p.name || p.id || 'Proyecto sin nombre';
         const status = p.status ? badge(p.status) : badge('idle');
         const created = p.created_at ? fmtDate(p.created_at) : '';
-        const actions = isCurrent ? `
-            <div class="project-actions">
-                <button class="btn-outline" onclick="pauseProject()">Pausar</button>
-                <button class="btn-danger" onclick="deleteProject()">Eliminar</button>
-            </div>` : '';
+ const actions = isCurrent ? `
+ <div class="project-actions">
+ <button class="btn-outline" onclick="pauseProject()">Pausar</button>
+ <button class="btn-danger" onclick="deleteProject()">Eliminar</button>
+ </div>` : `
+ <div class="project-actions">
+ <button class="btn-danger" onclick="deleteProjectById('${p.id}')">Eliminar</button>
+ </div>`;
         return `<div class="project-item">
             <div class="project-meta">
                 <div class="project-title">${title}</div>
@@ -2309,6 +2864,36 @@ async function deleteProject() {
     }
 }
 
+async function deleteProjectById(projectId) {
+    if (!projectId) {
+        alert('ID de proyecto no válido');
+        return;
+    }
+    const projects = Array.isArray(memory?.projects) ? memory.projects : [];
+    const project = projects.find(p => p && p.id === projectId);
+    const projectName = project?.name || projectId;
+    if (!confirm(`¿Eliminar el proyecto "${projectName}"?\nEsta acción eliminará los archivos del proyecto.`)) return;
+    try {
+        const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+        const r = await fetch(`${API}/project/delete`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({ project_id: projectId }),
+        });
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(data.error || 'No se pudo eliminar el proyecto');
+        await fetchInitialState();
+        await fetchFilesSnapshot(true);
+        await fetchRuntimeSnapshot(true);
+    } catch (e) {
+        alert(e.message || 'Error al eliminar el proyecto');
+    }
+}
+
 async function resumeProject(taskId = null) {
     const tasks = Array.isArray(memory?.tasks) ? memory.tasks : [];
     const resumeSet = taskId
@@ -2393,6 +2978,8 @@ function setTab(tab, btn) {
     renderTab();
     if (tab === 'files') {
         fetchFilesSnapshot();
+    } else if (tab === 'copilot') {
+        fetchContextSnapshot();
     } else if (tab === 'miniverse') {
         fetchMiniverseSnapshot();
     }
@@ -2407,6 +2994,7 @@ function renderTab() {
     if (activeTab === 'tasks')      content.innerHTML = renderTasks(memory.tasks||[]);
     else if (activeTab === 'log')   content.innerHTML = `<div class="log-feed">${renderLog(memory.log||[])}</div>`;
     else if (activeTab === 'gateway') content.innerHTML = renderGatewayTab();
+    else if (activeTab === 'copilot') content.innerHTML = renderCopilotTab();
     else if (activeTab === 'miniverse') content.innerHTML = renderMiniverse(miniverseSnapshot);
     else                            content.innerHTML = renderFiles(filesSnapshot || memory);
 }
@@ -2419,9 +3007,14 @@ function render(mem) {
     document.getElementById('projects-list').innerHTML = renderProjects(mem.projects||[], mem.project?.id);
     const runtimePanel = document.getElementById('runtime-panel');
     if (runtimePanel) runtimePanel.innerHTML = renderRuntimePanel(runtimeSnapshot || mem);
+    if (activeTab === 'copilot' && !contextRequestPromise) {
+        fetchContextSnapshot();
+    }
     renderTab();
     if (activeTab === 'files') {
         fetchFilesSnapshot();
+    } else if (activeTab === 'copilot') {
+        fetchContextSnapshot();
     } else if (activeTab === 'miniverse') {
         fetchMiniverseSnapshot();
     }
@@ -2513,11 +3106,17 @@ setInterval(fetchModels, 60000);
 fetchInitialState();
 fetchFilesSnapshot(true);
 fetchGatewayEventsSnapshot(true);
+fetchContextSnapshot(true);
 fetchMiniverseSnapshot(true);
 fetchRuntimeSnapshot(true);
 setInterval(() => {
     fetchRuntimeSnapshot();
 }, 4000);
+setInterval(() => {
+    if (activeTab === 'copilot') {
+        fetchContextSnapshot();
+    }
+}, 60000);
 startStream();
 startGatewayStream();
 </script>
