@@ -1021,6 +1021,22 @@ function availableModelsByProvider() {
     return grouped;
 }
 
+function providerDisplayName(provider) {
+    const labels = {
+        'opencode-go': 'OpenCode Go',
+        'opencode': 'OpenCode Zen',
+    };
+    return labels[provider] || provider;
+}
+
+function providerSortRank(provider) {
+    const ranks = {
+        'opencode-go': 10,
+        'opencode': 11,
+    };
+    return ranks[provider] ?? 100;
+}
+
 function availableModelSet() {
     return new Set((Array.isArray(modelConfig?.available) ? modelConfig.available : []).map(model => model.qualified));
 }
@@ -1062,13 +1078,19 @@ function renderModelSelect(agentId) {
     const grouped = availableModelsByProvider();
     const current = currentAgentModel(agentId);
     const selected = resolvedAgentModel(agentId);
-    const options = Object.entries(grouped).map(([provider, models]) => {
+    const options = Object.entries(grouped)
+        .sort(([a], [b]) => {
+            const rankDiff = providerSortRank(a) - providerSortRank(b);
+            return rankDiff !== 0 ? rankDiff : a.localeCompare(b);
+        })
+        .map(([provider, models]) => {
         const opts = models.map(model => {
             const label = `${model.name || model.model_id || model.qualified} (${model.qualified})`;
             const selectedAttr = model.qualified === selected ? ' selected' : '';
             return `<option value="${escapeHtml(model.qualified)}"${selectedAttr}>${escapeHtml(label)}</option>`;
         }).join('');
-        return `<optgroup label="${escapeHtml(provider)}">${opts}</optgroup>`;
+        const providerLabel = providerDisplayName(provider);
+        return `<optgroup label="${escapeHtml(providerLabel)}">${opts}</optgroup>`;
     }).join('');
 
     return `<label class="model-row" for="agent-model-${agentId}">
