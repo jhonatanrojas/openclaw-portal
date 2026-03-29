@@ -28,6 +28,33 @@
         .conn-row { display: flex; align-items: center; gap: 8px; }
         .conn-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
 
+        .summary-bar { display: grid; gap: 12px; margin-bottom: 18px; }
+        .summary-card {
+            background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(247,244,236,.96));
+            border: 0.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 14px 16px;
+            display: grid;
+            gap: 12px;
+            box-shadow: 0 10px 26px rgba(15, 23, 42, .05);
+        }
+        .summary-card-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
+        .summary-card-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+        .summary-card-subtitle { font-size: 12px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; }
+        .summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+        .summary-metric {
+            border: 0.5px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255,255,255,.7);
+            padding: 10px 12px;
+            display: grid;
+            gap: 4px;
+        }
+        .summary-metric-label { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-tertiary); }
+        .summary-metric-value { font-size: 13px; font-weight: 600; color: var(--text-primary); word-break: break-word; }
+        .summary-metric-note { font-size: 11px; color: var(--text-secondary); line-height: 1.45; }
+        .summary-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
         .agents-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-bottom: 20px; }
         .agent-card { background: var(--bg-primary); border: 0.5px solid var(--border);
             border-radius: var(--radius-lg); padding: 1rem 1.25rem; }
@@ -498,6 +525,7 @@
             padding: 6px 10px; border-radius: 6px; font-size: 12px; }
 
         @media (max-width: 1080px) {
+            .summary-grid { grid-template-columns: 1fr; }
             .miniverse-mock-grid { grid-template-columns: 1fr; }
             .copilot-grid { grid-template-columns: 1fr; }
             .miniverse-iframe-shell,
@@ -535,6 +563,8 @@
             <span style="font-size:12px;color:var(--text-secondary)" id="conn-label">Conectando…</span>
         </div>
     </div>
+
+    <div class="summary-bar" id="summary-bar"></div>
 
     <!-- Agentes -->
     <div class="agents-grid" id="agents-grid"></div>
@@ -596,12 +626,12 @@
 
     <!-- Pestañas -->
     <div class="tabs">
-        <button class="tab-btn active" onclick="setTab('tasks',this)">Tareas</button>
-        <button class="tab-btn" onclick="setTab('log',this)">Registro de eventos</button>
-        <button class="tab-btn" onclick="setTab('gateway',this)">Eventos del Gateway</button>
-        <button class="tab-btn" onclick="setTab('files',this)">Archivos</button>
-        <button class="tab-btn" onclick="setTab('copilot',this)">Co-piloto</button>
-        <button class="tab-btn" onclick="setTab('miniverse',this)">Miniverse</button>
+        <button class="tab-btn" data-tab="tasks" onclick="setTab('tasks',this)">Tareas</button>
+        <button class="tab-btn" data-tab="log" onclick="setTab('log',this)">Registro de eventos</button>
+        <button class="tab-btn" data-tab="gateway" onclick="setTab('gateway',this)">Eventos del Gateway</button>
+        <button class="tab-btn" data-tab="files" onclick="setTab('files',this)">Archivos</button>
+        <button class="tab-btn active" data-tab="copilot" onclick="setTab('copilot',this)">Co-piloto</button>
+        <button class="tab-btn" data-tab="miniverse" onclick="setTab('miniverse',this)">Miniverse</button>
     </div>
 
     <div class="panel" id="tab-content">
@@ -672,7 +702,7 @@ let filesRequestedAt = 0;
 let filesRequestPromise = null;
 let filesScope = 'running';
 let projectsScope = 'active';
-let activeTab = 'tasks';
+let activeTab = 'copilot';
 let modelConfig = null;
 let streamSource = null;
 let gatewaySource = null;
@@ -1792,6 +1822,59 @@ function renderGatewayTab() {
     `;
 }
 
+function renderSummaryBar() {
+    const activeTask = selectedCopilotTask();
+    const preview = taskPreviewInfo(activeTask);
+    const previewState = preview.url ? preview.status : 'not_applicable';
+    const contextReady = Boolean(contextSnapshot);
+    const contextState = contextLoading
+        ? 'cargando'
+        : contextError
+            ? 'error'
+            : contextReady
+                ? 'listo'
+                : 'sin_cargar';
+    const contextMeta = contextSnapshot
+        ? `${contextSnapshot.title || 'CONTEXT.md'} · ${contextSections.length} sección${contextSections.length === 1 ? '' : 'es'}`
+        : contextError || 'Sin snapshot todavía';
+    const previewLabel = preview.url ? preview.url : 'Sin preview activo';
+    const previewTone = preview.url ? (preview.status === 'running' ? 'ok' : 'warning') : 'muted';
+    const contextTone = contextState === 'listo' ? 'ok' : contextState === 'error' ? 'error' : contextState === 'cargando' ? 'warning' : 'muted';
+    return `
+        <section class="summary-card">
+            <div class="summary-card-head">
+                <div>
+                <div class="summary-card-title">Resumen del co-piloto</div>
+                <div class="summary-card-subtitle">Estado rápido del preview activo y del contexto compartido antes de entrar a una tarea.</div>
+                </div>
+                <div class="summary-actions">
+                    <span class="badge" style="background:${previewTone === 'ok' ? '#EAF3DE' : previewTone === 'warning' ? '#FFF2D8' : '#F1EFE8'};color:${previewTone === 'ok' ? '#3B6D11' : previewTone === 'warning' ? '#9A5B00' : '#5F5E5A'}">Preview ${escapeHtml(previewState)}</span>
+                    <span class="badge" style="background:${contextTone === 'ok' ? '#EAF3DE' : contextTone === 'warning' ? '#FFF2D8' : contextTone === 'error' ? '#FCEBEB' : '#F1EFE8'};color:${contextTone === 'ok' ? '#3B6D11' : contextTone === 'warning' ? '#9A5B00' : contextTone === 'error' ? '#791F1F' : '#5F5E5A'}">Contexto ${escapeHtml(contextState)}</span>
+                    ${preview.url ? `<a class="btn-outline" href="${escapeHtml(preview.url)}" target="_blank" rel="noreferrer">Abrir preview</a>` : ''}
+                    <a class="btn-outline" href="#tab-content" onclick="setTab('copilot'); return false;">Ir al co-piloto</a>
+                </div>
+            </div>
+            <div class="summary-grid">
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Preview activo</div>
+                    <div class="summary-metric-value">${escapeHtml(previewLabel)}</div>
+                    <div class="summary-metric-note">${escapeHtml(activeTask?.id ? `${activeTask.id} · ${activeTask.title || 'sin título'}` : 'No hay tarea activa con preview definido')}</div>
+                </div>
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Estado del preview</div>
+                    <div class="summary-metric-value">${escapeHtml(previewState)}</div>
+                    <div class="summary-metric-note">${escapeHtml(activeTask?.agent ? `${gatewayAgentLabel(String(activeTask.agent).toLowerCase())}` : 'Sin agente asignado')}</div>
+                </div>
+                <div class="summary-metric">
+                    <div class="summary-metric-label">Estado del contexto</div>
+                    <div class="summary-metric-value">${escapeHtml(contextState)}</div>
+                    <div class="summary-metric-note">${escapeHtml(contextMeta)}</div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
 function renderCopilotTab() {
     const tasks = Array.isArray(memory?.tasks) ? memory.tasks : [];
     const activeTask = selectedCopilotTask();
@@ -2327,6 +2410,8 @@ async function fetchContextSnapshot(force = false) {
         .finally(() => {
             contextLoading = false;
             contextRequestPromise = null;
+            const summaryBar = document.getElementById('summary-bar');
+            if (summaryBar) summaryBar.innerHTML = renderSummaryBar();
             if (activeTab === 'copilot') renderTab();
         });
 
@@ -2974,7 +3059,8 @@ async function fetchInitialState() {
 function setTab(tab, btn) {
     activeTab = tab;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
+    const targetBtn = btn || document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+    if (targetBtn) targetBtn.classList.add('active');
     renderTab();
     if (tab === 'files') {
         fetchFilesSnapshot();
@@ -3001,6 +3087,8 @@ function renderTab() {
 
 function render(mem) {
     memory = mem;
+    const summaryBar = document.getElementById('summary-bar');
+    if (summaryBar) summaryBar.innerHTML = renderSummaryBar();
     renderAgents(mem.agents);
     renderProject(mem.project, mem.tasks||[], mem.plan||{});
     renderBlockers(mem.blockers);
